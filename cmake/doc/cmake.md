@@ -110,7 +110,7 @@ include_directories(include)
 ```cmake
 add_subdirectory(lib)
 add_executable(calculator main.c)
-target_link_libraries(calculator lib)
+target_link_libraries(calculator lib-calculator)
 ```
 `$ cat ./projet-c/src/lib/CMakeLists.txt`
 ```cmake
@@ -123,3 +123,5 @@ add_library(lib-calculator ${LIB})
 - lancer la commande : `cmake ..`
 > CMake lit l'ensemble des CMakeLists.txt et en réalise une compilation pour générer le **Makefile** et un ensemble d'autres fichiers
 - lancer la commande `make` : compilation -> génération d'un exécutable
+
+> `src/calculator` est notre executable ainsi généré
