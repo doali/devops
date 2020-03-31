@@ -13,10 +13,11 @@ L'interaction avec CMake s'effecture via un **langage propre à CMake** afin de 
 - traitement automatique des dépendances en C / C++
 - équivalent : SCons, QMake, Autotools, Premake
 
-## Installation
+## Preparation du poste
 - Linux : `sudo apt install cmake`
 
 ## En bref
+_Trois outils, CMake, CTest et CPack._
 ### CMake
 - écriture d'instructions CMake (permettant la génération du MakeFile)
 - génération du fichier **MakeFile** via **cmake**
@@ -29,12 +30,15 @@ L'interaction avec CMake s'effecture via un **langage propre à CMake** afin de 
 - génération des redistribuables, packages d'installation...
 - pilotage via un fichier qui réalisera le déploiement
 
-## En pratique
+## Cas d'école complet
+*En bref*
 - créer un fichier **CMakeLists.txt** à la racine du projet
+  > (!) et dans chaque sous répertoires
 - écrire en cmake les instructions dans le fichier CMakeLists.txt
 - lancer **cmake** qui entrainera la génération du fichier **MakeFile**
+- lancer **make** pour exécuter le _Makefile_ généré
 
-### Exemple
+### Utilisation de CMake
 _Creation d'un projet `projet-c`_
 #### Création de la hiérarchie du file system
 ```bash
@@ -56,23 +60,8 @@ projet-c/
 - `include` : les fichiers headers
 - `lib` : implémentation des fonctions définies dans les headers
 
-#### Exemple avec nos sources...
-```bash
-projet-c/
-├── build
-├── CMakeLists.txt
-├── include
-│   ├── calculator.h
-│   └── CMakeLists.txt
-└── src
-    ├── CMakeLists.txt
-    ├── lib
-    │   ├── calculator.c
-    │   └── CMakeLists.txt
-    └── main.c
-```
-#### Configuration de notre projet
-Edition d'un fichier CMakeLists.txt
+#### Editions des fichiers CMakeLists_.txt_
+Les indispensables
 - `project(<project_name>, [language_1, language_2, ...])` : nom du projet et les langages utilisés
 - `add_subdirectory(<directory_name>)` : nom des répertoires à inclure depuis CMakeLists.txt
   > Tout répertoire devra contenir un fichier CMakeLists.txt
@@ -125,3 +114,27 @@ add_library(lib-calculator ${LIB})
 - lancer la commande `make` : compilation -> génération d'un exécutable
 
 > `src/calculator` est notre executable ainsi généré
+
+#### Installation
+_`cmake` et `make` ont participé à la génération de multiplers fichiers dans le `build`_
+_Cette section présente la façon de procéder pour obtenir un ***livrable*** que l'on pourra diffuser._
+
+Les indispensables
+- `install([FILES|TARGETS|DIRECTORY|SCRIPT|CODE|EXPORT] <element> [...])` : selon l'argument `FILES, TARGETS...`, la fonction `install` réalisera une action spécifique au regard de `<element>`
+
+On vise l'installation suivante :
+- `bin` : pour l'exécutable `calculator`
+- `lib` : pour la lib `lib-calculator`
+- `include` : pour le(s) fichier(s) _headers_
+```bash
+```
+
+- Cas de `include`
+```bash
+$ cat projet-c/include/CMakeLists.txt
+```cmake
+file(GLOB headers . *.h)
+install(FILES ${headers} DESTINATION include)
+```
+> on créé une variable `ħeaders` qui contiendra la liste des fichiers `*.h` \
+> on copie tous les fichiers contenus dans la variables `headers` dans le répertoire `include`
