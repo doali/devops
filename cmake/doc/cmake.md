@@ -83,7 +83,7 @@ _Ce qui donne pour notre exemple_
 `$ cat ./projet-c/CMakeLists.txt`
 
 ```cmake
-cmake__minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 
 project(calculator C)
 
@@ -116,13 +116,13 @@ add_library(lib-calculator ${LIB})
 > `src/calculator` est notre executable ainsi généré
 
 #### Installation
-_`cmake` et `make` ont participé à la génération de multiplers fichiers dans le `build`_
+_`cmake` et `make` ont participé à la génération de multiplers fichiers dans le `build`._
 _Cette section présente la façon de procéder pour obtenir un ***livrable*** que l'on pourra diffuser._
 
-Les indispensables
-- `install([FILES|TARGETS|DIRECTORY|SCRIPT|CODE|EXPORT] <element> [...])` : selon l'argument `FILES, TARGETS...`, la fonction `install` réalisera une action spécifique au regard de `<element>`
+**Les indispensables**
+- `install([FILES|TARGETS|DIRECTORY|SCRIPT|CODE|EXPORT] <element> [...])` : selon l'argument `FILES, TARGETS...`, la fonction `install` réalisera une action spécifique au regard de `<element>`. `FILES, TARGETS, ...` permet de définir la nature de `<element>` et ainsi le comportement de `install(...)`
 
-On vise l'installation suivante :
+**On vise l'installation suivante**
 - `bin` : pour l'exécutable `calculator`
 - `lib` : pour la lib `lib-calculator`
 - `include` : pour le(s) fichier(s) _headers_
@@ -132,9 +132,45 @@ On vise l'installation suivante :
 - Cas de `include`
 ```bash
 $ cat projet-c/include/CMakeLists.txt
+```
 ```cmake
 file(GLOB headers . *.h)
 install(FILES ${headers} DESTINATION include)
 ```
 > on créé une variable `ħeaders` qui contiendra la liste des fichiers `*.h` \
 > on copie tous les fichiers contenus dans la variables `headers` dans le répertoire `include`
+
+- Cas de `lib`
+```bash
+$ cat projet-c/src/lib/CMakeLists.txt
+```
+```cmake
+file(GLOB LIB . *.c)
+add_library(lib-calculator ${LIB})
+install(TARGETS lib-calculator DESTINATION lib)
+```
+> On copie la librairie `lib-calculator` dans le répertoire `lib`
+
+- Cas de `bin`
+```bash
+$ cat projet-c/src/CMakeLists.txt
+```
+```cmake
+add_subdirectory(lib)
+add_executable(calculator main.c)
+target_link_libraries(calculator lib-calculator)
+include(TARGETS calculator DESTINATION bin)
+```
+> On copie l'exécutable `calculator` dans le répertoire `bin`
+
+Suppression des fichies issus de la compilation
+- `make clean` : lancée dans le répertoire `build`
+  > supprime `calculator` et `liblib-calculator.a` \
+  > i.e. l'exécutable et la librairie
+
+**Modification des _variables de configuration_ de CMake** \
+_Variables ayant une valeur par défaut et mises à disposition par CMake pour que l'on configure notre **environnement**._
+
+- `CMAKE_INSTALL_PREFIX` : définition du répertoire d'accueil de l'installation
+  > (!) `/usr/local` est la valeur par défaut sur linux
+
