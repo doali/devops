@@ -13,11 +13,23 @@ L'interaction avec CMake s'effecture via un **langage propre à CMake** afin de 
 - traitement automatique des dépendances en C / C++
 - équivalent : SCons, QMake, Autotools, Premake
 
-## Preparation du poste
-- Linux : `sudo apt install cmake`
+**Prérequis**
+```bash
+sudo apt install -y \
+  cmake \
+  cmake-curses-gui \
+  cmake-gui
+```
+
+---
 
 ## En bref
 _Trois outils, CMake, CTest et CPack._
+- `cmake -D CMAKE_INSTALL_PREFIX=./../livrable` : compilation des fichiers de configuration CMakeLists.txt
+- `make install` : compilation && installation
+
+---
+
 ### CMake
 - écriture d'instructions CMake (permettant la génération du MakeFile)
 - génération du fichier **MakeFile** via **cmake**
@@ -60,7 +72,7 @@ projet-c/
 - `include` : les fichiers headers
 - `lib` : implémentation des fonctions définies dans les headers
 
-#### Editions des fichiers CMakeLists_.txt_
+#### Editions des fichiers CMakeLists.txt
 Les indispensables
 - `project(<project_name>, [language_1, language_2, ...])` : nom du projet et les langages utilisés
 - `add_subdirectory(<directory_name>)` : nom des répertoires à inclure depuis CMakeLists.txt
@@ -182,13 +194,21 @@ cmake -D CMAKE_INSTALL_PREFIX=./../dist ..
 > - (!) Les variables de configurations sont **visibles** dans le fichiers `CMakeCache.txt` (contenu dans notre répertoire `build`)
 
 ```bash
-ccmake
+ccmake ..
 ```
+> - (!) au deux points finaux :-)
 > - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
 > - réalisé en mode **semi-graphique**
 
 ```bash
-cmake-gui
+cmake-gui ..
 ```
+> - (!) au deux points finaux :-)
 > - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
 > - réalisé en mode **graphique**
+
+**Installation**
+_Prise en compte des fichiers générés précédemment avec la nouvelle valeur de `CMAKE_INSTALL_PREFIX`._
+
+- `make install` : lancée depuis le répertoire `build`
+  > va générer l'arborescence telle que définie par les `CMakeLists.txt` et `CMAKE_INSTALL_PREFIX`
