@@ -174,3 +174,21 @@ _Variables ayant une valeur par défaut et mises à disposition par CMake pour q
 - `CMAKE_INSTALL_PREFIX` : définition du répertoire d'accueil de l'installation
   > (!) `/usr/local` est la valeur par défaut sur linux
 
+```bash
+cmake -D CMAKE_INSTALL_PREFIX=./../dist ..
+```
+> - (!) au deux points finaux :-)
+> - Permet de générer les fichiers propres à CMake en renseignant sa variable de configuration `CMAKE_INSTALL_PREFIX`
+> - (!) Les variables de configurations sont **visibles** dans le fichiers `CMakeCache.txt` (contenu dans notre répertoire `build`)
+
+```bash
+ccmake
+```
+> - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
+> - réalisé en mode **semi-graphique**
+
+```bash
+cmake-gui
+```
+> - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
+> - réalisé en mode **graphique**
