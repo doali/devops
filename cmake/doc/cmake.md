@@ -241,19 +241,25 @@ enable_testing()
 cat projet-c/CMakeLists.txt
 ```
 ```cmake
-add_subdirectory(lib)
-add_executable(calculator main.c)
-target_link_libraries(calculator lib-calculator)
-install(TARGETS calculator DESTINATION bin)
+cmake_minimum_required(VERSION 2.8)
 
-add_test(test_add src/calculator 0 + 0) 
-add_test(test_sub src/calculator 1 - 1) 
-add_test(test_mul src/calculator 0 \\* 1) 
-add_test(test_div src/calculator 0 / 1)
-add_test(test_add src/calculator 0 + 1) 
-add_test(test_sub src/calculator 2 - 1) 
-add_test(test_mul src/calculator 1 \\* 1) 
-add_test(test_div src/calculator 0 / 1)
+project(calculator C)
+
+add_subdirectory(include)
+add_subdirectory(src)
+
+include_directories(include)
+
+enable_testing()
+
+add_test(test_1_add src/calculator 0 + 0) 
+add_test(test_2_sub src/calculator 1 - 1) 
+add_test(test_3_mul src/calculator 0 * 1) 
+add_test(test_4_div src/calculator 0 / 1)
+add_test(test_5_add src/calculator 0 + 1) 
+add_test(test_6_sub src/calculator 2 - 1) 
+add_test(test_7_mul src/calculator 1 * 1) 
+add_test(test_8_div src/calculator 1 / 1)
 ```
 > (!) il faut relancer la compilation des fichiers via `cmake` car `CMakeLists.txt` a été modifié
 ```bash
@@ -263,5 +269,5 @@ cmake ..
 
 #### Lancer les tests
 _Depuis le répertoire `build`_
-- `make test` : exécute les divets tests introduits par `add_test(...)`
+- `make test` : exécute les divers tests introduits par `add_test(...)`
 - `projet-c/build/Testing/Temporary/LastTest.log` : contient le resultat des tests
