@@ -212,3 +212,56 @@ _Prise en compte des fichiers générés précédemment avec la nouvelle valeur 
 
 - `make install` : lancée depuis le répertoire `build`
   > va générer l'arborescence telle que définie par les `CMakeLists.txt` et `CMAKE_INSTALL_PREFIX`
+
+### Utilisation de CTest
+_Définition et exécution des tests._
+#### Activation
+- ajouter `enable_testing()` au `CMakeLists.txt` de la racine du projet
+```bash
+cat projet-c/CMakeLists.txt
+```
+```cmake
+cmake_minimum_required(VERSION 2.8)
+
+project(calculator C)
+
+add_subdirectory(include)
+add_subdirectory(src)
+include_directories(include)
+
+enable_testing()
+```
+
+#### Ajout des tests
+- `add_test(<test_name> <exec> <arg1> <arg2> ...)`
+  - `<test_name>` : le nom du test
+  - `<exec>` : nom de l'executable / chemin vers l'executable
+  - `<argX>` : les arguments
+```bash
+cat projet-c/CMakeLists.txt
+```
+```cmake
+add_subdirectory(lib)
+add_executable(calculator main.c)
+target_link_libraries(calculator lib-calculator)
+install(TARGETS calculator DESTINATION bin)
+
+add_test(test_add src/calculator 0 + 0) 
+add_test(test_sub src/calculator 1 - 1) 
+add_test(test_mul src/calculator 0 \\* 1) 
+add_test(test_div src/calculator 0 / 1)
+add_test(test_add src/calculator 0 + 1) 
+add_test(test_sub src/calculator 2 - 1) 
+add_test(test_mul src/calculator 1 \\* 1) 
+add_test(test_div src/calculator 0 / 1)
+```
+> (!) il faut relancer la compilation des fichiers via `cmake` car `CMakeLists.txt` a été modifié
+```bash
+cmake ..
+```
+> Toujours depuis le répertoire `build`
+
+#### Lancer les tests
+_Depuis le répertoire `build`_
+- `make test` : exécute les divets tests introduits par `add_test(...)`
+- `projet-c/build/Testing/Temporary/LastTest.log` : contient le resultat des tests
