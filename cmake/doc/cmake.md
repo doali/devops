@@ -215,7 +215,7 @@ _Prise en compte des fichiers générés précédemment avec la nouvelle valeur 
 
 ### Utilisation de CTest
 _Définition et exécution des tests._
-#### Activation
+#### Activer les tests
 - ajouter `enable_testing()` au `CMakeLists.txt` de la racine du projet
 ```bash
 cat projet-c/CMakeLists.txt
@@ -232,7 +232,7 @@ include_directories(include)
 enable_testing()
 ```
 
-#### Ajout des tests
+#### Ajouter des tests
 - `add_test(<test_name> <exec> <arg1> <arg2> ...)`
   - `<test_name>` : le nom du test
   - `<exec>` : nom de l'executable / chemin vers l'executable
