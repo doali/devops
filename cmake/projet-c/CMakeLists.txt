@@ -17,3 +17,8 @@ add_test(test_5_add src/calculator 0 + 1)
 add_test(test_6_sub src/calculator 2 - 1) 
 add_test(test_7_mul src/calculator 1 * 1) 
 add_test(test_8_div src/calculator 1 / 1)
+
+set(CPACK_GENERATOR "STGZ;TGZ;TZ;DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "doali") #required
+
+include(CPack)

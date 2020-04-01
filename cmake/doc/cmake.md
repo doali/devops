@@ -18,7 +18,8 @@ L'interaction avec CMake s'effecture via un **langage propre à CMake** afin de 
 sudo apt install -y \
   cmake \
   cmake-curses-gui \
-  cmake-gui
+  cmake-gui \
+  nsis
 ```
 
 ---
@@ -271,3 +272,146 @@ cmake ..
 _Depuis le répertoire `build`_
 - `make test` : exécute les divers tests introduits par `add_test(...)`
 - `projet-c/build/Testing/Temporary/LastTest.log` : contient le resultat des tests
+
+Résultat de la commande : `make test`
+```text
+Running tests...
+Test project /home/blackpc/git-github/devops/cmake/projet-c/build
+    Start 1: test_1_add
+1/8 Test #1: test_1_add .......................   Passed    0.00 sec
+    Start 2: test_2_sub
+2/8 Test #2: test_2_sub .......................   Passed    0.00 sec
+    Start 3: test_3_mul
+3/8 Test #3: test_3_mul .......................   Passed    0.00 sec
+    Start 4: test_4_div
+4/8 Test #4: test_4_div .......................   Passed    0.00 sec
+    Start 5: test_5_add
+5/8 Test #5: test_5_add .......................   Passed    0.00 sec
+    Start 6: test_6_sub
+6/8 Test #6: test_6_sub .......................   Passed    0.00 sec
+    Start 7: test_7_mul
+7/8 Test #7: test_7_mul .......................   Passed    0.01 sec
+    Start 8: test_8_div
+8/8 Test #8: test_8_div .......................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 8
+
+Total Test time (real) =   0.03 sec
+```
+
+Extrait du fichier : `cat Testing/Temporary/LastTest.log`
+```text
+Start testing: Apr 01 15:15 CEST
+----------------------------------------------------------
+1/8 Testing: test_1_add
+1/8 Test: test_1_add
+Command: "/home/blackpc/git-github/devops/cmake/projet-c/build/src/calculator" "0" "+" "0"
+Directory: /home/blackpc/git-github/devops/cmake/projet-c/build
+"test_1_add" start time: Apr 01 15:15 CEST
+Output:
+----------------------------------------------------------
+0.000000
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_1_add" end time: Apr 01 15:15 CEST
+"test_1_add" time elapsed: 00:00:00
+----------------------------------------------------------
+```
+
+### Utilisation de CPack
+_Construction d'un paquetage à l'aide de CPack._
+
+#### Déclarations et définitions
+**Méthode à la mano**
+
+Les instructions doivent-être définies dans un fichier `CPackConfig.cmake`.
+> (!) à la racine du projet
+
+**Méthode automatique**
+- modifier le fichier `CMakeLists.txt` à la racine du projet (`/projet-c/CMakeLists.txt`)
+```cmake
+set(CPACK_GENERATOR "STGZ;TGZ;TZ;DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "doali") #required
+
+include(CPack)
+```
+- `CPACK_GENERATOR` : indique les générateurs à utiliser pour générer les livrables
+- `CPACK_DEBIAN_PACKAGE_MAINTAINER` : est obligatoire si l'on souhaite un paquet `DEB`
+
+Le fichier complet étant
+```bash
+cat /projet-c/CMakeLists.txt
+```
+```cmake
+cmake_minimum_required(VERSION 2.8)
+
+project(calculator C)
+
+add_subdirectory(include)
+add_subdirectory(src)
+
+include_directories(include)
+
+enable_testing()
+
+add_test(test_1_add src/calculator 0 + 0) 
+add_test(test_2_sub src/calculator 1 - 1) 
+add_test(test_3_mul src/calculator 0 * 1) 
+add_test(test_4_div src/calculator 0 / 1)
+add_test(test_5_add src/calculator 0 + 1) 
+add_test(test_6_sub src/calculator 2 - 1) 
+add_test(test_7_mul src/calculator 1 * 1) 
+add_test(test_8_div src/calculator 1 / 1)
+
+set(CPACK_GENERATOR "STGZ;TGZ;TZ;DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "doali") #required
+
+include(CPack)
+```
+
+Il suffit ensuite de lancer la génération des divers fichiers CPack via la commande
+```bash
+make package
+```
+- (!) au niveau du répertoire  `build`
+
+qui produit le résultat suivant
+
+```text
+[ 50%] Built target lib-calculator
+[100%] Built target calculator
+Run CPack packaging tool...
+CPack: Create package using STGZ
+CPack: Install projects
+CPack: - Run preinstall target for: calculator
+CPack: - Install project: calculator
+CPack: Create package
+CPack: - package: /home/blackpc/git-github/devops/cmake/projet-c/build/calculator-0.1.1-Linux.sh generated.
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: calculator
+CPack: - Install project: calculator
+CPack: Create package
+CPack: - package: /home/blackpc/git-github/devops/cmake/projet-c/build/calculator-0.1.1-Linux.tar.gz generated.
+CPack: Create package using TZ
+CPack: Install projects
+CPack: - Run preinstall target for: calculator
+CPack: - Install project: calculator
+CPack: Create package
+CPack: - package: /home/blackpc/git-github/devops/cmake/projet-c/build/calculator-0.1.1-Linux.tar.Z generated.
+CPack: Create package using DEB
+CPack: Install projects
+CPack: - Run preinstall target for: calculator
+CPack: - Install project: calculator
+CPack: Create package
+CPack: - package: /home/blackpc/git-github/devops/cmake/projet-c/build/calculator-0.1.1-Linux.deb generated.
+```
+Les livrables sont également présents
+```bash
+calculator-0.1.1-Linux.deb
+calculator-0.1.1-Linux.sh
+calculator-0.1.1-Linux.tar.gz
+calculator-0.1.1-Linux.tar.Z
+```
