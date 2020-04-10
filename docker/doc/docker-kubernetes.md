@@ -1,10 +1,12 @@
 # Docker _(et Kubernetes)_
 _Extrait de wikipedia_
+
 > Docker est un logiciel libre permettant de lancer des applications dans des conteneurs logiciels.
 
 _En 2018, le nombre de sociétés utilisant Docker se compte en milliers. L'utilisation de Docker est le plus souvent couplé avec un orchestrateur (tel Kubernetes)._
 
 En chiffres
+
 - 2013 entrée dans l'Open Source de Docker
   - _la virtualisation est déjà vieille de prés de 4 décennies en 2020_
 - en moyenne 8 conteneurs par hôte,
@@ -19,6 +21,7 @@ Le développement de Docker s'est réalisé en suivant au mieux _The Twelve-Fact
 ---
 
 Sommaire
+
 - Historique
 - VM (Virtual Machine) vs Conteneur
 - Pratique
@@ -71,6 +74,7 @@ Kubernetes s'est imposé et propose une interface CRI (Container Runtime Interfa
 ## Exemples
 
 ### Docker file
+
 ```
 FROM ubuntu
 
@@ -87,23 +91,30 @@ CMD nginx -g 'daemon off;'
 ## Decouverte
 
 ### Recuperaton d'une image
+
 - `docker pull debian`
-  > L'image debian (version latest) sera téléchargée depuis docker hub
+
+> L'image debian (version latest) sera téléchargée depuis docker hub
 
 - `docker run debian`
-  > Si l'image debian (version latest) n'est pas présente sur la machine où cette commande est réalisée
-  > alors, elle sera téléchargée depuis docker hub
+
+> Si l'image debian (version latest) n'est pas présente sur la machine où cette commande est réalisée
+> alors, elle sera téléchargée depuis docker hub
 
 ### Image de base modifiée : diff -> commit -> save
+
 Contexte
+
 - on récupère une image debian : `docker pull debian`
 - on créé un container depuis cette image : `docker run debian`
   - dont l'id est `474af97349ff` (obtenu via : `docker ps`)
 
 #### `docker diff...`
+
 La commande `docker diff 474af` renvoie sur la sortie standard toutes les différences de notre container avec un container instance de notre image de référence debian.
 
 #### `docker commit...`
+
 On peut alors sauvegarder "l'image" modifiée de notre conteneur de la façon suivante : `docker commit 474a debian-vim`
 
 > username@hostname:~$ docker commit 474af debian-vim
@@ -119,15 +130,18 @@ La nouvelle image debian-vim est désormais disponible
 > username@hostname-pc:~/git-github$
 
 #### `docker save...`
+
 Pour disposer de cette image, il faut l'exporter : `docker save debian-vim >~/imgdocker/debian-vim.tar`
 > _On suppose que_ ~/imgdocker/ _est un chemin existant_
 
 #### `docker rmi...`
+
 - Supprimons maintenant l'image **docker-vim** : `docker rmi 3eebf9f46f2f` (grace à son sha1)
 - Cette image n'est désormais plus présente dans la liste des images disponibles : `docker images`
 - ...
 
 #### `docker load...`
+
 - ...
 - On peut charger une image au format .tar directement dans la "liste" des images docker (`docker images`) en utilisant la commande docker load à laquelle on fournit en entrée une archive (.tar)
   - `docker load < ~/imgdocker/debian-vim.tar`
@@ -141,6 +155,7 @@ Pour disposer de cette image, il faut l'exporter : `docker save debian-vim >~/im
     ````
 
 ## Biblio
+
 - Conteneur
   - [LXC sur wikipedia](https://fr.wikipedia.org/wiki/LXC)
   - [Docker sur wikipedia](https://fr.wikipedia.org/wiki/Docker_(logiciel))
