@@ -1,0 +1,74 @@
+#cloud-config
+
+# ---------------------------
+# Configuration de la machine
+# ---------------------------
+hostname: pel-vm
+locale: fr_FR.UTF-8
+ssh_pwauth: True
+
+chpasswd:
+  list: |
+     root:root
+  expire: False
+
+# ---------------------------
+# Configuration du user
+# ---------------------------
+users:
+  - default
+  - name: user-debian
+    gecos: user-debian
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users,admin,docker
+    lock_passwd: false
+    passwd: $1$TGOQTJkW$kwOzZ1hLlhzUiRt.PT494.
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNQb5mFYXcQx6vCuwjhpxA0jPFQVMyY8Pq1v5ZIzNnfhFz6GY0PxmqaUf9qLa8ETSkpsWH3vqXxPBmcHWOPYTppyivlfXPNv7ek3jCWqP2oZc0g+y9CussfeDeN6fiYIFOZpmUcPBDjFFjBoTpjY52v7XoVwECzIqPL1vW0msBCFEvv6MP2FreAOM1S4iXSTN2zYJ6mIQytFVKqUqfDy7TsrukaKRfmVPWZtCSo9jObWsly9mSvKwBV7l0vtJ8UDXT0gTjys1LuFaAzfqbsYVS0TKpKZnyidAsrhP9WDHmN3/mVvKlQCxItDZOTuI/47nNLkUzUjw4j5rYfyKjW/R9 xavier@xavier
+
+# ---------------------------
+# Configuration du repository
+# ---------------------------
+apt:
+  primary:
+    - arches: [default]
+      uri: http://deb.debian.org/debian/
+  sources_list: |
+    deb $PRIMARY stretch main
+    deb $PRIMARY stretch-updates main
+    deb $PRIMARY stretch-backports main
+  conf: |
+    APT {
+      Get {
+        Assume-Yes "true";
+        Fix-Broken "true";
+      };
+    };
+
+# ---------------------------
+# Recuperation des paquets
+# ---------------------------
+packages:
+  - curl
+  - apt-transport-https
+  - ca-certificates
+  - gnupg2
+  - software-properties-common
+  - smcroute
+
+# ---------------------------
+# Installation de docker
+# ---------------------------
+runcmd:
+  - sudo curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  - sudo apt-get update -y
+  - sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+  - sudo apt-get install docker-compose
+  - sudo systemctl start docker
+  - sudo systemctl enable docker
+
+# Notification de fin des traitements par cloud init
+final_message: "The system is finally up, after $UPTIME seconds"
+
