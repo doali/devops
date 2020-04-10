@@ -8,12 +8,14 @@ L'interaction avec CMake s'effecture via un **langage propre à CMake** afin de 
 - fichier d'instructions : **.cmake** ou **CMakeLists.txt** (fonctions, commandes, variables, structures de contrôle)
 
 **Remarques**
+
 - open source
 - initié par Kitware en 2000
 - traitement automatique des dépendances en C / C++
 - équivalent : SCons, QMake, Autotools, Premake
 
 **Prérequis**
+
 ```bash
 sudo apt install -y \
   cmake \
@@ -26,25 +28,30 @@ sudo apt install -y \
 
 ## En bref
 _Trois outils, CMake, CTest et CPack._
+
 - `cmake -D CMAKE_INSTALL_PREFIX=./../livrable` : compilation des fichiers de configuration CMakeLists.txt
 - `make install` : compilation && installation
 
 ---
 
 ### CMake
+
 - écriture d'instructions CMake (permettant la génération du MakeFile)
 - génération du fichier **MakeFile** via **cmake**
 - réalisation de tâches décrites dans le **MakeFile**
 
 ### CTest
+
 - génération, gestion, exécution des tests
 
 ### CPack
+
 - génération des redistribuables, packages d'installation...
 - pilotage via un fichier qui réalisera le déploiement
 
 ## Cas d'école complet
 *En bref*
+
 - créer un fichier **CMakeLists.txt** à la racine du projet
   > (!) et dans chaque sous répertoires
 - écrire en cmake les instructions dans le fichier CMakeLists.txt
@@ -52,8 +59,11 @@ _Trois outils, CMake, CTest et CPack._
 - lancer **make** pour exécuter le _Makefile_ généré
 
 ### Utilisation de CMake
+
 _Creation d'un projet `projet-c`_
+
 #### Création de la hiérarchie du file system
+
 ```bash
 projet-c/
 ├── build
@@ -68,6 +78,7 @@ projet-c/
     │   └── CMakeLists.txt
     └── main.c
 ```
+
 - `build` : cible des fichiers générés par cmake
 - `src` : sources...
 - `include` : les fichiers headers
@@ -75,6 +86,7 @@ projet-c/
 
 #### Editions des fichiers CMakeLists.txt
 Les indispensables
+
 - `project(<project_name>, [language_1, language_2, ...])` : nom du projet et les langages utilisés
 - `add_subdirectory(<directory_name>)` : nom des répertoires à inclure depuis CMakeLists.txt
   > Tout répertoire devra contenir un fichier CMakeLists.txt
@@ -104,23 +116,29 @@ add_subdirectory(include)
 add_subdirectory(src)
 include_directories(include)
 ```
+
 `$ cat ./projet-c/include/CMakeLists.txt`
+
 ```cmake
 ```
 
 `$ cat ./projet-c/src/CMakeLists.txt`
+
 ```cmake
 add_subdirectory(lib)
 add_executable(calculator main.c)
 target_link_libraries(calculator lib-calculator)
 ```
+
 `$ cat ./projet-c/src/lib/CMakeLists.txt`
+
 ```cmake
 file(GLOB LIB . *.c)
 add_library(lib-calculator ${LIB})
 ```
 
 #### Compilation
+
 - se placer dans le répertoire `build`
 - lancer la commande : `cmake ..`
 > CMake lit l'ensemble des CMakeLists.txt et en réalise une compilation pour générer le **Makefile** et un ensemble d'autres fichiers
@@ -129,54 +147,75 @@ add_library(lib-calculator ${LIB})
 > `src/calculator` est notre executable ainsi généré
 
 #### Installation
+
 _`cmake` et `make` ont participé à la génération de multiplers fichiers dans le `build`._
 _Cette section présente la façon de procéder pour obtenir un ***livrable*** que l'on pourra diffuser._
 
 **Les indispensables**
+
 - `install([FILES|TARGETS|DIRECTORY|SCRIPT|CODE|EXPORT] <element> [...])` : selon l'argument `FILES, TARGETS...`, la fonction `install` réalisera une action spécifique au regard de `<element>`. `FILES, TARGETS, ...` permet de définir la nature de `<element>` et ainsi le comportement de `install(...)`
 
 **On vise l'installation suivante**
+
 - `bin` : pour l'exécutable `calculator`
 - `lib` : pour la lib `lib-calculator`
 - `include` : pour le(s) fichier(s) _headers_
+
 ```bash
+dist
+├── bin
+│   └── calculator
+├── include
+│   └── calculator.h
+└── lib
+    └── liblib-calculator.a
 ```
 
 - Cas de `include`
+
 ```bash
 $ cat projet-c/include/CMakeLists.txt
 ```
+
 ```cmake
 file(GLOB headers . *.h)
 install(FILES ${headers} DESTINATION include)
 ```
+
 > on créé une variable `ħeaders` qui contiendra la liste des fichiers `*.h` \
 > on copie tous les fichiers contenus dans la variables `headers` dans le répertoire `include`
 
 - Cas de `lib`
+
 ```bash
 $ cat projet-c/src/lib/CMakeLists.txt
 ```
+
 ```cmake
 file(GLOB LIB . *.c)
 add_library(lib-calculator ${LIB})
 install(TARGETS lib-calculator DESTINATION lib)
 ```
+
 > On copie la librairie `lib-calculator` dans le répertoire `lib`
 
 - Cas de `bin`
+
 ```bash
 $ cat projet-c/src/CMakeLists.txt
 ```
+
 ```cmake
 add_subdirectory(lib)
 add_executable(calculator main.c)
 target_link_libraries(calculator lib-calculator)
 include(TARGETS calculator DESTINATION bin)
 ```
+
 > On copie l'exécutable `calculator` dans le répertoire `bin`
 
 Suppression des fichies issus de la compilation
+
 - `make clean` : lancée dans le répertoire `build`
   > supprime `calculator` et `liblib-calculator.a` \
   > i.e. l'exécutable et la librairie
@@ -190,6 +229,7 @@ _Variables ayant une valeur par défaut et mises à disposition par CMake pour q
 ```bash
 cmake -D CMAKE_INSTALL_PREFIX=./../dist ..
 ```
+
 > - (!) au deux points finaux :-)
 > - Permet de générer les fichiers propres à CMake en renseignant sa variable de configuration `CMAKE_INSTALL_PREFIX`
 > - (!) Les variables de configurations sont **visibles** dans le fichiers `CMakeCache.txt` (contenu dans notre répertoire `build`)
@@ -197,6 +237,7 @@ cmake -D CMAKE_INSTALL_PREFIX=./../dist ..
 ```bash
 ccmake ..
 ```
+
 > - (!) au deux points finaux :-)
 > - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
 > - réalisé en mode **semi-graphique**
@@ -204,6 +245,7 @@ ccmake ..
 ```bash
 cmake-gui ..
 ```
+
 > - (!) au deux points finaux :-)
 > - permet également de configurer la variable de configuration `CMAKE_INSTALL_PREFIX`
 > - réalisé en mode **graphique**
@@ -215,12 +257,16 @@ _Prise en compte des fichiers générés précédemment avec la nouvelle valeur 
   > va générer l'arborescence telle que définie par les `CMakeLists.txt` et `CMAKE_INSTALL_PREFIX`
 
 ### Utilisation de CTest
+
 _Définition et exécution des tests._
+
 #### Activer les tests
+
 - ajouter `enable_testing()` au `CMakeLists.txt` de la racine du projet
 ```bash
 cat projet-c/CMakeLists.txt
 ```
+
 ```cmake
 cmake_minimum_required(VERSION 2.8)
 
@@ -234,13 +280,16 @@ enable_testing()
 ```
 
 #### Ajouter des tests
+
 - `add_test(<test_name> <exec> <arg1> <arg2> ...)`
   - `<test_name>` : le nom du test
   - `<exec>` : nom de l'executable / chemin vers l'executable
   - `<argX>` : les arguments
+
 ```bash
 cat projet-c/CMakeLists.txt
 ```
+
 ```cmake
 cmake_minimum_required(VERSION 2.8)
 
@@ -262,18 +311,23 @@ add_test(test_6_sub src/calculator 2 - 1)
 add_test(test_7_mul src/calculator 1 * 1) 
 add_test(test_8_div src/calculator 1 / 1)
 ```
+
 > (!) il faut relancer la compilation des fichiers via `cmake` car `CMakeLists.txt` a été modifié
+
 ```bash
 cmake ..
 ```
+
 > Toujours depuis le répertoire `build`
 
 #### Lancer les tests
+
 _Depuis le répertoire `build`_
 - `make test` : exécute les divers tests introduits par `add_test(...)`
 - `projet-c/build/Testing/Temporary/LastTest.log` : contient le resultat des tests
 
 Résultat de la commande : `make test`
+
 ```text
 Running tests...
 Test project /home/blackpc/git-github/devops/cmake/projet-c/build
@@ -300,6 +354,7 @@ Total Test time (real) =   0.03 sec
 ```
 
 Extrait du fichier : `cat Testing/Temporary/LastTest.log`
+
 ```text
 Start testing: Apr 01 15:15 CEST
 ----------------------------------------------------------
@@ -321,16 +376,20 @@ Test Passed.
 ```
 
 ### Utilisation de CPack
+
 _Construction d'un paquetage à l'aide de CPack._
 
 #### Déclarations et définitions
+
 **Méthode à la mano**
 
 Les instructions doivent-être définies dans un fichier `CPackConfig.cmake`.
 > (!) à la racine du projet
+
 ```bash
 cat CPackConfig.cmake
 ```
+
 ```cmake
 # Definition d'une variable
 SET(CCALCULATOR_BUILD "/home/blackpc/git-github/devops/cmake/projet-c/build")
@@ -378,9 +437,11 @@ SET(CPACK_SYSTEM_NAME "Linux-x86_64")
 ```
 
 On lance la compilation des divers fichiers par CPack qui réalisera selon cette configuration le packaging, la création des différents livrables via la commande
+
 - `cpack --config ../CPackConfig.cmake ` : génération des livrables selon la configuration `CPackConfig.cmake`
 
 On peut observer dans `build` les livrables suivants
+
 ```bash
 calculator-1.0.0-Linux-x86_64.deb
 calculator-1.0.0-Linux-x86_64.sh
@@ -390,19 +451,23 @@ calculator-1.0.0-Linux-x86_64.tar.Z
 
 **Méthode automatique**
 - modifier le fichier `CMakeLists.txt` à la racine du projet (`/projet-c/CMakeLists.txt`)
+
 ```cmake
 set(CPACK_GENERATOR "STGZ;TGZ;TZ;DEB")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "doali") #required
 
 include(CPack)
 ```
+
 - `CPACK_GENERATOR` : indique les générateurs à utiliser pour générer les livrables
 - `CPACK_DEBIAN_PACKAGE_MAINTAINER` : est obligatoire si l'on souhaite un paquet `DEB`
 
 Le fichier complet étant
+
 ```bash
 cat /projet-c/CMakeLists.txt
 ```
+
 ```cmake
 cmake_minimum_required(VERSION 2.8)
 
@@ -431,9 +496,11 @@ include(CPack)
 ```
 
 Il suffit ensuite de lancer la génération des divers fichiers CPack via la commande
+
 ```bash
 make package
 ```
+
 - (!) au niveau du répertoire  `build`
 
 qui produit le résultat suivant
@@ -467,7 +534,9 @@ CPack: - Install project: calculator
 CPack: Create package
 CPack: - package: /home/blackpc/git-github/devops/cmake/projet-c/build/calculator-0.1.1-Linux.deb generated.
 ```
+
 Les livrables sont également présents
+
 ```bash
 calculator-0.1.1-Linux.deb
 calculator-0.1.1-Linux.sh
