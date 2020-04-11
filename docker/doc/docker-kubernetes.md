@@ -122,17 +122,31 @@ On peut alors sauvegarder "l'image" modifiée de notre conteneur de la façon su
 
 La nouvelle image debian-vim est désormais disponible
 
+```bash
 > username@hostname-pc:~/git-github$ docker images
 > REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 > debian-vim          latest              3eebf9f46f2f        9 minutes ago       165MB
 > debian              latest              a8797652cfd9        10 days ago         114MB
 > alpine              latest              e7d92cdc71fe        3 weeks ago         5.59MB
 > username@hostname-pc:~/git-github$
+```
+
+On peut dès lors utiliser notre nouvelle image `debian-vim`
+
+- `docker run -it debian-vim`
+
+```bash
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run -it debian-vim
+root@273bfb77f358:/# exit
+exit
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ 
+```
 
 #### `docker save...`
 
-Pour disposer de cette image, il faut l'exporter : `docker save debian-vim >~/imgdocker/debian-vim.tar`
-> _On suppose que_ ~/imgdocker/ _est un chemin existant_
+Pour sauvegarder de cette image, il faut l'exporter : `docker save debian-vim >~/img-docker/debian-vim.tar`
+
+> _On suppose que_ ~/img-docker/ _est un chemin existant_
 
 #### `docker rmi...`
 
@@ -143,16 +157,75 @@ Pour disposer de cette image, il faut l'exporter : `docker save debian-vim >~/im
 #### `docker load...`
 
 - ...
-- On peut charger une image au format .tar directement dans la "liste" des images docker (`docker images`) en utilisant la commande docker load à laquelle on fournit en entrée une archive (.tar)
+- On peut charger une image au format .tar directement dans la "liste" des images docker (`docker images`) en utilisant la commande `docker load` à laquelle on fournit en entrée une archive (.tar)
   - `docker load < ~/imgdocker/debian-vim.tar`
 
-    ```
+    ```bash
     username@hostname-pc:~/git-github/docker/script$ docker images    
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
     debian-vim-git      latest              1e08ef61f9da        14 minutes ago      270MB    
     debian-vim          latest              3eebf9f46f2f        37 minutes ago      165MB    
     username@hostname-pc:~/git-github/docker/script$    
-    ````
+    ```
+
+#### `docker (image|container) prune`
+
+- `docker container prune` : supprime tous les containers (i.e. les instances d'images)
+
+- `docker image prune` : supprime toutes les images
+
+*RM* 
+> Le prompt invite à confirmer les demandes de suppressions
+
+_La suppression via la commande `docker image prune` malgré le fait que j'ai confirmé la demande de suppression n'a pas supprimé mes images..._
+
+- `docker images`
+
+```bash
+blackpc@blackpc-pc:~/img-docker$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+debian              latest              58075fe9ecce        11 days ago         114MB
+debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
+blackpc@blackpc-pc:~/img-docker$ docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+blackpc@blackpc-pc:~/img-docker$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+debian              latest              58075fe9ecce        11 days ago         114MB
+debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
+blackpc@blackpc-pc:~/img-docker$ 
+```
+
+> Il est alors possible de supprimer comme ceci
+
+```bash
+for i in $(docker images | awk '{print($3)}' | tail +2); do docker rmi $i; done
+```
+
+ce qui nous donne
+
+```bash
+blackpc@blackpc-pc:~/img-docker$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+debian              latest              58075fe9ecce        11 days ago         114MB
+debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
+blackpc@blackpc-pc:~/img-docker$ docker images | awk '{print($3)}' | tail +2
+58075fe9ecce
+1e08ef61f9da
+blackpc@blackpc-pc:~/img-docker$ for i in $(docker images | awk '{print($3)}' | tail +2); do docker rmi $i; done
+Untagged: debian:latest
+Untagged: debian@sha256:125ab9ab9718f4dba6c3342407bb1923afce4f6b2a12b3a502d818274db9faf9
+Deleted: sha256:58075fe9eccee217ff713b4b500f6caeaa68e88bc4834b2d1e3407f20e124315
+Deleted: sha256:24efcd549ab5e1786f787e7dc03590dcb222e7e95242524d97fedeb05393e891
+Untagged: debian-vim-git:latest
+Deleted: sha256:1e08ef61f9da88a242b6dd5d6b5688ef4286b4e4964c8125cce4b942ff613709
+Deleted: sha256:03bd3ce2aa8fcb1a2b28eee40c495036c6b35c6064f2c14631337e5e1af45e05
+Deleted: sha256:ce8168f123378f7e04b085c9672717013d1d28b2aa726361bb132c1c64fe76ac
+blackpc@blackpc-pc:~/img-docker$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+blackpc@blackpc-pc:~/img-docker$ 
+```
 
 ## Biblio
 
