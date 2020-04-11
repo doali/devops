@@ -212,3 +212,6 @@ _La commande `git grep`_
 > - tous les fichiers contenant `cou`
 > - et dont le nom termine par `.md`
 
+## Biblio
+
+- [atlassian](https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud)
