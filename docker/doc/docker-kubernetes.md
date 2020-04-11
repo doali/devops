@@ -156,6 +156,8 @@ Pour disposer de cette image, il faut l'exporter : `docker save debian-vim >~/im
 
 ## Biblio
 
+- Registry
+  - [Docker HUB](https://hub.docker.com/)
 - Conteneur
   - [LXC sur wikipedia](https://fr.wikipedia.org/wiki/LXC)
   - [Docker sur wikipedia](https://fr.wikipedia.org/wiki/Docker_(logiciel))
