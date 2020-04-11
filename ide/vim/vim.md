@@ -95,3 +95,4 @@ filetype plugin indent on    " required
 - [Vundle tuto](https://blog.pabuisson.com/2014/07/vim-vundle-gestion-plugins/)
 - [Gitthub Vundle](https://github.com/VundleVim/Vundle.vim)
 - [You complete me](https://github.com/ycm-core/YouCompleteMe)
+- [plugins](https://www.vimfromscratch.com/articles/5-must-have-vim-plugins-2018/)
