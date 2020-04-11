@@ -90,6 +90,13 @@ CMD nginx -g 'daemon off;'
 
 ## Decouverte
 
+### Principe
+- daemon docker
+- docker's CLI (lignes de commandes)
+
+_Boot2Docker :_ machine virtuelle proposée pour utiliser Docker sur Mac et Windows.
+
+
 ### Recuperaton d'une image
 
 - `docker pull debian`
