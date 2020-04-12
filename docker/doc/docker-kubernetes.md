@@ -96,6 +96,24 @@ CMD nginx -g 'daemon off;'
 
 _Boot2Docker :_ machine virtuelle proposée pour utiliser Docker sur Mac et Windows.
 
+**wikipedia**
+_Docker est un logiciel libre permettant de lancer des applications dans des conteneurs logiciels_
+
+- isolement des applications, outils dans un container 
+- isolé du système d'exploitation
+- exécution par un daemon
+- possibilité de définir des images (modèle de création d'un container)
+- sécurité, réseau, volumes, services, ...
+
+### Images docker
+
+_Une image est un empilement de couches correspondant à d'autres images_
+
+> En conséquence, on ne récupère que les layers (images) dont on a besoin
+
+### Container
+
+_Un container est une instance d'une image_
 
 ### Recuperaton d'une image
 
@@ -114,7 +132,7 @@ Contexte
 
 - on récupère une image debian : `docker pull debian`
 - on créé un container depuis cette image : `docker run debian`
-  - dont l'id est `474af97349ff` (obtenu via : `docker ps`)
+  - dont l'id est `474af97349ff` (obtenu via : `docker ps` : visualisation de l'ensemble des containers actifs)
 
 #### `docker diff...`
 
@@ -141,6 +159,9 @@ La nouvelle image debian-vim est désormais disponible
 On peut dès lors utiliser notre nouvelle image `debian-vim`
 
 - `docker run -it debian-vim`
+
+- `-i` : Keep STDIN open even if not attached. The default is false.
+- `-t` : Allocate a pseudo-TTY. The default is false.
 
 ```bash
 blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run -it debian-vim
@@ -234,10 +255,76 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 blackpc@blackpc-pc:~/img-docker$ 
 ```
 
+#### `docker run -d -p (host_port:container_port) [...]`
+
+_Plug le host_port de la machine hote sur le container_port du container_
+
+- `-p, --publish ip:[hostPort]:containerPort | [hostPort:]containerPort`
+
+  > Publish a container's port, or range of ports, to the host.
+
+- `-d, --detach=true|false`
+
+  > Detached mode: run the container in the background and print the new container ID. The default is false.
+
+```bash
+docker run -d -p 8080:2368 ghost
+```
+
+#### `docker run -v (host-path;container-path) [...]`
+
+_Monte un volume de la machine hote dans le conteneur._
+
+- `-v|--volume[=[[HOST-DIR:]CONTAINER-DIR[:OPTIONS]]]`
+
+	> Create a bind mount. If you specify, -v /HOST-DIR:/CONTAINER-DIR, Docker
+	> bind mounts /HOST-DIR in the host to /CONTAINER-DIR in the Docker
+	> container. If 'HOST-DIR' is omitted,  Docker automatically creates the new
+	> volume on the host.
+
+```bash
+docker run -it -v ${HOME}/git-github:/home debian
+```
+
+### `docker run --name <some-name>`
+
+_Permet d'associer le sha1 à <some-name>_
+
+```bash
+docker run --name my-ghost -d -p 8080:2368 ghost
+```
+
+```bash
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run -d -p 8080:2368 ghost
+1a71e8ff30586125b7a98abc900be9ddbf4b92fd7a6e0bbedccb5fcb15e31a70
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+1a71e8ff3058        ghost               "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:8080->2368/tcp   crazy_einstein
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker stop 1a71e8ff3058
+1a71e8ff3058
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run --name my-ghost -d -p 8080:2368 ghost
+83eb010dffac6d0b099773a59402e8231689025196aea08d0c7e2eca6f1fdad3
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+83eb010dffac        ghost               "docker-entrypoint.s…"   4 seconds ago       Up 2 seconds        0.0.0.0:8080->2368/tcp   my-ghost
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker stop my-ghost
+my-ghost
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+blackpc@blackpc-pc:~/git-github/devops/docker/doc$
+```
+
 ## Biblio
 
+- Presentation
+  - [grafikart](https://www.grafikart.fr/tutoriels/docker-intro-634)
 - Registry
   - [Docker HUB](https://hub.docker.com/)
+  - [nginx](https://hub.docker.com/_/nginx)
 - Conteneur
   - [LXC sur wikipedia](https://fr.wikipedia.org/wiki/LXC)
   - [Docker sur wikipedia](https://fr.wikipedia.org/wiki/Docker_(logiciel))
