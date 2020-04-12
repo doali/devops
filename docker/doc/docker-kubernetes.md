@@ -164,10 +164,10 @@ On peut dès lors utiliser notre nouvelle image `debian-vim`
 - `-t` : Allocate a pseudo-TTY. The default is false.
 
 ```bash
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run -it debian-vim
+user@pc:~/git-github/devops/docker/doc$ docker run -it debian-vim
 root@273bfb77f358:/# exit
 exit
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ 
+user@pc:~/git-github/devops/docker/doc$ 
 ```
 
 #### `docker save...`
@@ -210,19 +210,19 @@ _La suppression via la commande `docker image prune` malgré le fait que j'ai co
 - `docker images`
 
 ```bash
-blackpc@blackpc-pc:~/img-docker$ docker images
+user@pc:~/img-docker$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 debian              latest              58075fe9ecce        11 days ago         114MB
 debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
-blackpc@blackpc-pc:~/img-docker$ docker image prune
+user@pc:~/img-docker$ docker image prune
 WARNING! This will remove all dangling images.
 Are you sure you want to continue? [y/N] y
 Total reclaimed space: 0B
-blackpc@blackpc-pc:~/img-docker$ docker images
+user@pc:~/img-docker$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 debian              latest              58075fe9ecce        11 days ago         114MB
 debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
-blackpc@blackpc-pc:~/img-docker$ 
+user@pc:~/img-docker$ 
 ```
 
 > Il est alors possible de supprimer comme ceci
@@ -234,14 +234,14 @@ for i in $(docker images | awk '{print($3)}' | tail +2); do docker rmi $i; done
 ce qui nous donne
 
 ```bash
-blackpc@blackpc-pc:~/img-docker$ docker images
+user@pc:~/img-docker$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 debian              latest              58075fe9ecce        11 days ago         114MB
 debian-vim-git      latest              1e08ef61f9da        8 weeks ago         270MB
-blackpc@blackpc-pc:~/img-docker$ docker images | awk '{print($3)}' | tail +2
+user@pc:~/img-docker$ docker images | awk '{print($3)}' | tail +2
 58075fe9ecce
 1e08ef61f9da
-blackpc@blackpc-pc:~/img-docker$ for i in $(docker images | awk '{print($3)}' | tail +2); do docker rmi $i; done
+user@pc:~/img-docker$ for i in $(docker images | awk '{print($3)}' | tail +2); do docker rmi $i; done
 Untagged: debian:latest
 Untagged: debian@sha256:125ab9ab9718f4dba6c3342407bb1923afce4f6b2a12b3a502d818274db9faf9
 Deleted: sha256:58075fe9eccee217ff713b4b500f6caeaa68e88bc4834b2d1e3407f20e124315
@@ -250,9 +250,9 @@ Untagged: debian-vim-git:latest
 Deleted: sha256:1e08ef61f9da88a242b6dd5d6b5688ef4286b4e4964c8125cce4b942ff613709
 Deleted: sha256:03bd3ce2aa8fcb1a2b28eee40c495036c6b35c6064f2c14631337e5e1af45e05
 Deleted: sha256:ce8168f123378f7e04b085c9672717013d1d28b2aa726361bb132c1c64fe76ac
-blackpc@blackpc-pc:~/img-docker$ docker images
+user@pc:~/img-docker$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-blackpc@blackpc-pc:~/img-docker$ 
+user@pc:~/img-docker$ 
 ```
 
 #### `docker run -d -p (host_port:container_port) [...]`
@@ -288,34 +288,34 @@ docker run -it -v ${HOME}/git-github:/home debian
 
 ### `docker run --name <some-name>`
 
-_Permet d'associer le sha1 à <some-name>_
+_Permet d'associer le sha1 à `<some-name>`_
 
 ```bash
 docker run --name my-ghost -d -p 8080:2368 ghost
 ```
 
 ```bash
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+user@pc:~/git-github/devops/docker/doc$ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run -d -p 8080:2368 ghost
+user@pc:~/git-github/devops/docker/doc$ docker run -d -p 8080:2368 ghost
 1a71e8ff30586125b7a98abc900be9ddbf4b92fd7a6e0bbedccb5fcb15e31a70
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+user@pc:~/git-github/devops/docker/doc$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 1a71e8ff3058        ghost               "docker-entrypoint.s…"   3 seconds ago       Up 2 seconds        0.0.0.0:8080->2368/tcp   crazy_einstein
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker stop 1a71e8ff3058
+user@pc:~/git-github/devops/docker/doc$ docker stop 1a71e8ff3058
 1a71e8ff3058
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+user@pc:~/git-github/devops/docker/doc$ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker run --name my-ghost -d -p 8080:2368 ghost
+user@pc:~/git-github/devops/docker/doc$ docker run --name my-ghost -d -p 8080:2368 ghost
 83eb010dffac6d0b099773a59402e8231689025196aea08d0c7e2eca6f1fdad3
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+user@pc:~/git-github/devops/docker/doc$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 83eb010dffac        ghost               "docker-entrypoint.s…"   4 seconds ago       Up 2 seconds        0.0.0.0:8080->2368/tcp   my-ghost
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker stop my-ghost
+user@pc:~/git-github/devops/docker/doc$ docker stop my-ghost
 my-ghost
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$ docker ps
+user@pc:~/git-github/devops/docker/doc$ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-blackpc@blackpc-pc:~/git-github/devops/docker/doc$
+user@pc:~/git-github/devops/docker/doc$
 ```
 
 ## Biblio
