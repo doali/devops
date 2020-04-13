@@ -91,8 +91,11 @@ CMD nginx -g 'daemon off;'
 ## Decouverte
 
 ### Principe
-- daemon docker
-- docker's CLI (lignes de commandes)
+- Docker daemon : processus serveur Docker à l'écoute d'instruction
+- Docker's CLI : client Docker en ligne de commandes
+- Docker Images : images modèle de création de conteneurs (Base image <- [layer ...] <- last_layer)
+- Docker Containers : instances d'images
+- Docker Store : registry
 
 _Boot2Docker :_ machine virtuelle proposée pour utiliser Docker sur Mac et Windows.
 
@@ -318,9 +321,21 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 user@pc:~/git-github/devops/docker/doc$
 ```
 
+### `docker [container] stop <sha1|name>`
+
+_Stop l'exécution du conteneur (que l'on peut vérifier avec_ `docker ps`
+
+### `docker [container] rm <sha1|name>`
+
+_Supprime le conteneur_
+
+- `docker rm -f <sha1|name>` : réalise un `stop` suivi d'un `rm` sur un conteneur
+
 ## Biblio
 
 - Presentation
+  - [docker overviw](https://docs.docker.com/get-started/)
+  - [docker command-line](https://docs.docker.com/engine/reference/commandline/tag/#examples)
   - [grafikart](https://www.grafikart.fr/tutoriels/docker-intro-634)
 - Registry
   - [Docker HUB](https://hub.docker.com/)
