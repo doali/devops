@@ -259,9 +259,9 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 user@pc:~/img-docker$ 
 ```
 
-#### `docker run -d -p (host_port:container_port) [...]`
+#### `docker run -d -p (host-port:container_port) [...]`
 
-_Plug le `<host_port>` de la machine hote sur le `<container_port>` du container_
+_Plug le `<host-port>` de la machine hote sur le `<container_port>` du container_
 
 - `-p, --publish ip:[hostPort]:containerPort | [hostPort:]containerPort`
 
@@ -275,7 +275,7 @@ _Plug le `<host_port>` de la machine hote sur le `<container_port>` du container
 docker run -d -p 8080:2368 ghost
 ```
 
-#### `docker run -v (host-path;container-path) [...]`
+#### `docker run -v (host-path:container-path) [...]`
 
 _Monte un volume de la machine hote dans le conteneur._
 
@@ -290,7 +290,7 @@ _Monte un volume de la machine hote dans le conteneur._
 docker run -it -v ${HOME}/git-github:/home debian
 ```
 
-### `docker run --name <some-name>`
+#### `docker run --name <some-name>`
 
 _Permet d'associer le sha1 à `<some-name>`_
 
@@ -322,17 +322,48 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 user@pc:~/git-github/devops/docker/doc$
 ```
 
+#### `docker stop ...`
+
 - `docker [container] stop <sha1|name>` : stoppe l'exécution du conteneur (que l'on peut vérifier avec `docker ps`)
+
+#### `docker rm ...`
+
 - `docker [container] rm <sha1|name>` : supprime le conteneur
 - `docker rm -f <sha1|name>` : réalise un `stop` suivi d'un `rm` sur un conteneur
+
+#### `docker exec ...`
+
+_Execute une commande dans un conteneur en cours d'exécution_
+
+- `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]`
+- `docker exec -it relaxed_germain bash`
+
+> - (!) le conteneur doit être en cours d'exécution !! \
+> - relaxed_germain est le nom associé au conteneur \
+> - bash est la commande à executer
+
+> Les options `-it` indique que l'on passe en mode interactif avec une demande d'un terminal
+
+#### `docker logs [-f] ...`
+
+- `docker run --rm -name my-ghost -d -p 8080:2368 ghost`
+- `docker logs --follow my-ghost`
+
+_Lancer la page : `firefox http://localhost:8080` et observer les logs..._
 
 ## Biblio
 
 Presentation
 
-  - [docker overviw](https://docs.docker.com/get-started/)
+  - [stack overflow](https://stackoverflow.com/questions/41603822/docker-how-to-update-images/41604309)
+  - [docker overview](https://docs.docker.com/get-started/)
   - [docker command-line](https://docs.docker.com/engine/reference/commandline/tag/#examples)
   - [grafikart](https://www.grafikart.fr/tutoriels/docker-intro-634)
+
+Commandes
+
+  - [docker docs exec](https://docs.docker.com/engine/reference/commandline/exec/)
+  - [docker docs logs](https://docs.docker.com/engine/reference/commandline/logs/)
 
 Registry
 
