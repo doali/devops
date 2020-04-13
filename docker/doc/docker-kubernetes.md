@@ -206,6 +206,7 @@ Pour sauvegarder de cette image, il faut l'exporter : `docker save debian-vim >~
 - `docker image prune` : supprime toutes les images
 
 *RM* 
+
 > Le prompt invite à confirmer les demandes de suppressions
 
 _La suppression via la commande `docker image prune` malgré le fait que j'ai confirmé la demande de suppression n'a pas supprimé mes images..._
@@ -260,7 +261,7 @@ user@pc:~/img-docker$
 
 #### `docker run -d -p (host_port:container_port) [...]`
 
-_Plug le host_port de la machine hote sur le container_port du container_
+_Plug le `<host_port>` de la machine hote sur le `<container_port>` du container_
 
 - `-p, --publish ip:[hostPort]:containerPort | [hostPort:]containerPort`
 
@@ -321,30 +322,33 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 user@pc:~/git-github/devops/docker/doc$
 ```
 
-### `docker [container] stop <sha1|name>`
-
-_Stop l'exécution du conteneur (que l'on peut vérifier avec_ `docker ps`
-
-### `docker [container] rm <sha1|name>`
-
-_Supprime le conteneur_
-
+- `docker [container] stop <sha1|name>` : stoppe l'exécution du conteneur (que l'on peut vérifier avec `docker ps`)
+- `docker [container] rm <sha1|name>` : supprime le conteneur
 - `docker rm -f <sha1|name>` : réalise un `stop` suivi d'un `rm` sur un conteneur
 
 ## Biblio
 
-- Presentation
+Presentation
+
   - [docker overviw](https://docs.docker.com/get-started/)
   - [docker command-line](https://docs.docker.com/engine/reference/commandline/tag/#examples)
   - [grafikart](https://www.grafikart.fr/tutoriels/docker-intro-634)
-- Registry
+
+Registry
+
   - [Docker HUB](https://hub.docker.com/)
   - [nginx](https://hub.docker.com/_/nginx)
-- Conteneur
+
+Conteneur
+  
   - [LXC sur wikipedia](https://fr.wikipedia.org/wiki/LXC)
   - [Docker sur wikipedia](https://fr.wikipedia.org/wiki/Docker_(logiciel))
-- Orchestrateur
+
+Orchestrateur
+  
   - [Kubernetes sur wikipedia](https://fr.wikipedia.org/wiki/Kubernetes)
   - [Minikube](https://kubernetes.io/fr/docs/setup/learning-environment/minikube/)
-- Philosophie _(développement d'un conteneur)_
+
+Philosophie _(développement d'un conteneur)_
+  
   - [The Twelve-Factor App](https://12factor.net/)

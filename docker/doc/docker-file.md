@@ -1,12 +1,18 @@
 # Dockerfile
 
-- `FROM` image de référence sur laquelle est bâtie notre image
+- `FROM` requis; première instuction; image de base (base layer) sur laquelle est bâtie notre image
 - `MAINTAINER` mainteneur de l'image  `Nom <email>`
-- `RUN` lance une commande, créé une image intermédiaire
+- `RUN` lance une commande; créé un layer (resultant de cette commande) apposé au layer précédent
 - `COPY` copie depuis l'hôte vers le conteneur
 - `ADD` copie un fichier depuis la machine hôte ou depuis une URL dans le container
-- `EXPOSE` permet d'exposer un port du container vers l'extérieur
-- `CMD` commande à exécuter au démarrage du conteneur
+- `EXPOSE` (merely a hint) indique qu'un port est exposé (ne publie pas le port !!); 
+
+> Pour publier le port il faut l'indiquer
+
+  - `-P` : bind chaque port exposé du conteneur à un port aléatoire de l'hôte
+  - `-p localhost:8000:5000` : bind le port 8000 de l'hôte sur le port 5000 du conteneur (`docker run -p localhost:8000:5000 [...])`
+
+- `CMD` commande à exécuter au démarrage du conteneur (unlike RUN : pas de nouveau layer); uniquement **un** `CMD` dans un Dockerfile
 - `ENTRYPOINT` permet d'ajouter une commande qui sera exécutée par défaut, et ce, même si on choisit d'exécuter une commande différente de la commande standard
 - `WORKDIR` définit le dossier de travail pour toutes les autres commandes (par exemple RUN, CMD, ENTRYPOINT et ADD)
 - `ENV` définit des variables d'environnements qui pourront ensuite être modifiées grâce au paramètre de la commande `run --env <key>=<value>`
@@ -46,3 +52,4 @@ RUN apt update -y
 ## Biblio
 
 - [grafikart Dockerfile](https://www.grafikart.fr/tutoriels/Dockerfile-636)
+- [vsupalov EXPOSE](https://vsupalov.com/docker-expose-ports/)
