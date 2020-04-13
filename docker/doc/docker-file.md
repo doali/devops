@@ -1,6 +1,6 @@
 # Dockerfile
 
-- `FROM` image de référence sur laquelle bâti notre image
+- `FROM` image de référence sur laquelle est bâtie notre image
 - `MAINTAINER` mainteneur de l'image  `Nom <email>`
 - `RUN` lance une commande, créé une image intermédiaire
 - `COPY` copie depuis l'hôte vers le conteneur
@@ -23,13 +23,21 @@
 FROM debian
 
 # Mainteneur
-MAINTAINER XavL <xou.xavl@gmail.com>
+MAINTAINER Username <user@domain.com>
 
 RUN apt update -y
 ```
 
 - instanciation de l'image décrite par le `Dockerfile` : `docker build -t doali/debian-update`
 - `-t <TAG>` : définition d'un TAG
+
+> Forme usuelle du TAG : [<component>|<comp_part1>/<comp_part2>:<version>|<registry>:<port>`
+
+- `docker tag <comp_part2> <comp_part1>/<comp_part2>:<version>`
+- `docker tag httpd fedora/httpd:version1.0`
+- `docker tag <sha1> myregistry:5000/<comp_part1>/comp_part2>:<version>`
+
+> `docker tag <sha1> user/image-name`
 
 ## Bonnes pratiques
 
