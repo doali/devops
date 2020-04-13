@@ -2,6 +2,6 @@
 FROM debian
 
 # Mainteneur
-MAINTAINER XavL <xou.xavl@gmail.com>
+MAINTAINER Username <user@domain.com>
 
 RUN apt update -y
