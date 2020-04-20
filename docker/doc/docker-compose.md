@@ -40,13 +40,25 @@ COPY index.html /usr/share/nginx/html
 
 ### `docker-compose.yml`
 
+_En se basant sur les commandes suivantes à traduire_
+
+```bash
+docker run --name doali-web -p 8080:80 -v ${PWD}/html:/usr/share/nginx/html nginx:0.0.1
+```
+
+où `${PWD}/html` contient le fichier `index.html`
+
 - créer un fichier YAML : `docker-compose.yml`
-- indiquer la version du fichier
-- le nom du conteneur que l'on va lancer
-  - `--name=doali-web`
-- image à instancier
-  - `image: nginx:0.0.1`
+- indiquer la version du fichier (doit-être en phase avec le moteur docker `docker --version`)
+
+> par exemple : `version: "3.8"` [versions](https://docs.docker.com/compose/compose-file/)
+
+- `<nom_container>:` le nom du conteneur que l'on va lancer, doali-web
+- `image:` image à instancier
+- `restart: [always]` pour lancer l'exécution du `docker-compose.yml` sitôt que le daemon docker tourne
+- `volumes:` introduit les volumes à monter sur le conteneur
 
 ## Biblio
 
 - [docker docs](https://docs.docker.com/compose/compose-file/)
+- [quora $(pwd)](https://www.quora.com/Do-docker-volumes-not-work-with-relative-paths)
