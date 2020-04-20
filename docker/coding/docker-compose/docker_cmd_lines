@@ -14,7 +14,7 @@ sudo tcpdump -vvv -XX 'tcp port 80'
 docker exec -it doali-web bash
 
 # Copier un fichier HTML
-docker cp index.html doali-web:/usr/share/nginx/html
+docker cp ./html/index.html doali-web:/usr/share/nginx/html
 
 # Stopper le conteneur
 docker stop doali-web
