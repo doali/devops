@@ -29,7 +29,7 @@ _Les instructions sont en lettres capitales_
 
 - copie fichiers / répertoires
 - URL
-- extrait directement le contenu d'uune archive 
+- extrait directement le contenu d'une archive 
 
 > depuis l'hôte vers le conteneur
 
@@ -56,13 +56,13 @@ docker logs -f compassionate_jang
 
 ### `CMD` et `ENTRYPOINT`
 
-_Il doit au moins existe un `ENTRYPOINT` ou une entrée `CMD` dans un Dockerfile_
+_Il doit au moins exister un `ENTRYPOINT` ou une entrée `CMD` dans un Dockerfile_
 
 #### `CMD` 
 
 - commande à exécuter au démarrage du conteneur (unlike RUN : pas de nouveau layer)
 - il existe uniquement **un** `CMD` dans un Dockerfile
-- exploitée par `ENTRYPOINT` qui utilise les paramètres de `CMD` comme arguments
+- exploité par `ENTRYPOINT` qui utilise les paramètres de `CMD` comme arguments
 - les paramètres de `CMD` sont surchargés sitôt que des arguments sont présents en ligne de commande
 
 #### `ENTRYPOINT` 
@@ -80,10 +80,11 @@ _Il doit au moins existe un `ENTRYPOINT` ou une entrée `CMD` dans un Dockerfile
 
 - `docker run -it -p 8080:80 -v /tmp/my-nginx:/volume/data -e MESSAGE="coucou toi" tuto/debian-nginx`
 
-> `-e` : introduit la couple CLEF=VALEUR pour la variable d'environnement MESSAGE
+> `-e` : introduit le couple CLEF=VALEUR pour la variable d'environnement MESSAGE
 
 _Utiliser la commande `docker exec -it <nom_container> <CMD>` pour entrer dans le conteneur_
- - avec `<CMD>` une commande qui sera `bash`
+
+- avec `<CMD>` une commande qui sera `bash`
 
 ```bash
 user@domain:$ docker exec -it keen_diffie bash
