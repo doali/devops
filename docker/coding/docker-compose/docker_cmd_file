@@ -1,0 +1,5 @@
+# Création d'une image taggée depuis nginx
+docker build -t doali/nginx:0.0.2 .
+
+# Création d'un conteneur
+docker run --name doali-web -p 8080:80 doali/nginx:0.0.2
