@@ -1,6 +1,8 @@
-doali-web:
-  image: doali/nginx:0.0.1
-  volumes:
-    - ./html:/html:ro
-  ports:
-    - 8080:80
+version: "3.3"
+services:
+  doali-web:
+    image: doali/web:0.1
+    ports:
+      - 8080:80
+    volumes:
+      - ./html:/usr/share/nginx/html
