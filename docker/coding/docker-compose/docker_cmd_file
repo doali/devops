@@ -1,5 +1,12 @@
+# Récupération de l'image nginx (docker HUB)
+docker pull nginx
+
 # Création d'une image taggée depuis nginx
-docker build -t doali/nginx:0.0.2 .
+docker tag nginx:latest doali/web:0.1
 
 # Création d'un conteneur
-docker run --name doali-web -p 8080:80 doali/nginx:0.0.2
+docker run --name doali-web -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html doali/web:0.1
+
+# Copie dans le conteneur lancé
+docker cp css doali-web:/usr/share/nginx
+docker cp js doali-web:/usr/share/nginx

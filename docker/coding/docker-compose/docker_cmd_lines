@@ -1,8 +1,11 @@
 # Récupération de nginx
 docker pull nginx
 
+# Tag de l'image src vers target
+docker tag nginx:latest doali/web:0.1
+
 # Premier lancement de nginx
-docker run --name doali-web -p 8080:80 nginx
+docker run --name doali-web -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html doali/web:0.1
 
 # Verifier les logs
 docker logs doali-web -f
@@ -14,10 +17,14 @@ sudo tcpdump -vvv -XX 'tcp port 80'
 docker exec -it doali-web bash
 
 # Copier un fichier HTML
-docker cp ./html/index.html doali-web:/usr/share/nginx/html
+docker cp css doali-web:/usr/share/nginx
+docker cp js doali-web:/usr/share/nginx
 
 # Stopper le conteneur
 docker stop doali-web
+
+# Diff du conteneur avec le conteneur issu de l'image de base
+docker diff doali-web
 
 # Relancer le conteneur
 docker start doali-web
