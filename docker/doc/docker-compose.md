@@ -174,6 +174,15 @@ Pour observer les logs
 
 - `docker logs -f dockercompose_doali-web_1`
 
+### Links entre services (containers) `MySQL`
+
+```text
+Links allow you to define extra aliases by which a service is reachable from another service
+```
+
+En repartant du docker-compose, on ajoute un base de données `MySQL`
+
+
 ## Biblio
 
 - [docker docs](https://docs.docker.com/compose/compose-file/)
@@ -182,3 +191,4 @@ Pour observer les logs
 - [docker compose specs](https://docs.docker.com/compose/compose-file/)
 - [docker-compose chaines](https://runnable.com/docker/advanced-docker-compose-configuration)
 - [flask, python, docker](https://docs.docker.com/compose/gettingstarted/)
+- [docker docs](https://docs.docker.com/compose/networking/#links)
