@@ -1,2 +1,10 @@
 FROM nginx
-COPY ./html/index.html /usr/share/nginx/html
+
+COPY js /usr/share/nginx/js
+COPY css /usr/share/nginx/css
+
+EXPOSE 80/tcp
+
+VOLUME /usr/share/nginx/html
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
