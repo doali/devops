@@ -342,6 +342,14 @@ _Execute une commande dans un conteneur en cours d'exécution_
 > - relaxed_germain est le nom associé au conteneur \
 > - bash est la commande à executer
 
+exemple
+
+> Copier une ressource depuis l'hote dans un container en cours d'exécution
+
+`tar -c <resource> | docker exec -i <nom_container> /bin/tar -C /tmp -x`
+
+> (!) utiliser `docker cp <resource> <nom_container>:/tmp`
+
 > Les options `-it` indique que l'on passe en mode interactif avec une demande d'un terminal
 
 #### `docker logs [-f] ...`
