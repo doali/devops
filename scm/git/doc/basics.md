@@ -134,8 +134,8 @@ git checkout
 
 ## diff
 
-- `git diff` compare la copie de travail avec le dépot local (.git)
-- `git diff --cached` compare la zone d'index avec le dépot local
+- `git diff` compare la copie de travail avec la zone d'index
+- `git diff --cached` compare la zone d'index avec le dépot local (.git)
 - `git diff HEAD` compare
   - la copie de travail avec le dépot local
   - la zone d'index avec le dépot local
