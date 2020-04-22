@@ -1,0 +1,6 @@
+---
+# tasks file for role
+
+- name: mon_debug
+  debug:
+    msg: "{{ ansible_default_ipv4.address }}"
