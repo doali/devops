@@ -8,6 +8,10 @@
 |`/<pattern>\c`|case insensitive|
 |`/<pattern>\C`|case sensitive|
 |:echo @% |directory/name of the current file from the working directory|
+|<g>;|move through edit positions (forward)|
+|<g>,|move through edit positions (backward)|
+|<Crtl>o|jump list (forward)|
+|<Crtl>i|jump list (backward)|
 
 ## Biblio
 - [riptutorial](https://riptutorial.com/vim/example/26471/invisible-characters)

@@ -1,9 +1,15 @@
 # Ansible
+_Michael DeHaan_ 
+
+_Créé en 2012 et actuellement sous la responsabilité de Red Hat (IBM)_
+
+---
 
 - `ansible-playbooks`
 
 > Ansible est un outil de gestion de configurations \
-> qui permet d'automatiser des tâches avec des scripts d'automatisation.
+> qui permet d'automatiser des tâches avec des scripts d'automatisation,
+> d'effectuer des déploiements (via des connexions ssh, des playbooks, paquets, scripts...)
 
 - `ansible-galaxy`
 
@@ -11,6 +17,8 @@
 > Galaxy provides pre-packaged units of work known to Ansible as Roles, and new in Galaxy 3.2, Collections.
 
 ## Notions
+
+- playbooks : fichiers YAML décrivant toutes les tâches
 
 - IAC : Infrastructure As Code
 
@@ -27,6 +35,15 @@ e.g. you would run IAC scripts to build and or configure your infrastructure ser
 - automatiser les tâches d'installation, de déploiement
 
 ### Playbooks
+
+- fichiers YAML : définition des tâches à réaliser sur les cibles
+  - définition des hôtes
+  - définition des variables
+  - appel des tâches à exécuter (qui peuvent appeler des modules)
+  - utilisation de templates (pour créer des scripts
+
+- `--syntax-check` : vérifier la syntaxe du playbook
+- `--check` : réaliser une sIMUlation
 
 ### Roles
 
@@ -87,3 +104,4 @@ tree
 
 - [geerlingguy](https://galaxy.ansible.com/geerlingguy)
 - [openclassroom](https://openclassrooms.com/fr/courses/2035796-utilisez-ansible-pour-automatiser-vos-taches-de-configuration)
+- [journaldunet](https://www.journaldunet.fr/web-tech/guide-de-l-entreprise-collaborative/1443876-ansible-outil-star-de-la-gestion-des-configurations-open-source-gratuit/)
