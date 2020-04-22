@@ -155,7 +155,7 @@ git checkout
 >   - `git diff --cached` ne renvoie aucune information car le fichier n'est pas dans la zone d'index
 > - puis, si on ajoute le fichier index_1 dans la zone d'index `git add index_1` alors
 >   - `git diff` ne renvoie aucune information car la copie de travail est désormais alignée avec le repository local
->   - `git diff --cached` indique les différences entre le fichier index_1 désormais présents dans la zone d'index et sa version dans le dépot local (.git)
+>   - `git diff --cached` indique les différences entre le fichier index_1 désormais présent dans la zone d'index et sa version dans le dépot local (.git)
 
 ## about branch
 
