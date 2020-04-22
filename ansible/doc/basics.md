@@ -69,3 +69,4 @@
 ## Bilio
 
 - [geerlingguy](https://galaxy.ansible.com/geerlingguy)
+- [openclassroom](https://openclassrooms.com/fr/courses/2035796-utilisez-ansible-pour-automatiser-vos-taches-de-configuration)
