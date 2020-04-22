@@ -1,17 +1,32 @@
 # Ansible
 
-- `Galaxy`
+- `ansible-playbooks`
+
+> Ansible est un outil de gestion de configurations \
+> qui permet d'automatiser des tâches avec des scripts d'automatisation.
+
+- `ansible-galaxy`
 
 > Galaxy is a hub for finding and sharing Ansible content. \
 > Galaxy provides pre-packaged units of work known to Ansible as Roles, and new in Galaxy 3.2, Collections.
 
 ## Notions
 
+- IAC : Infrastructure As Code
 
+```
+IAC is the instructions needed to provision and or configure infrastructure services...
+e.g. you would run IAC scripts to build and or configure your infrastructure services as needed for your application...
+``` 
+[Mark Smith](https://www.quora.com/What-is-the-difference-between-IaaS-and-IAC)
+
+## Roadmap, bonnes pratiques
+
+- décomposer l'installation en étapes
+- définir l'architecture technique 
+- automatiser les tâches d'installation, de déploiement
 
 ### Playbooks
-
-
 
 ### Roles
 
@@ -41,7 +56,9 @@
 
 > - init_role was created successfully
 
-```tree````
+```bash
+tree
+```
 
 ```bash
 .
