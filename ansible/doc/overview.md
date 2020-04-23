@@ -2,6 +2,7 @@
 
 ## Bibli
 
+- [sametmax](http://sametmax.com/introduction-a-ansible-loutil-du-sysadmin-paresseux-mais-pragmatique/)
 - [les-enovateur](https://les-enovateurs.com/ansible-galaxy-scripts-existants/)
 - [grafikart](https://www.grafikart.fr/tutoriels/ansible-753)
 - [lucasvidelaine](https://lucasvidelaine.wordpress.com/2018/05/22/ansible/)
