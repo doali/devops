@@ -3,7 +3,7 @@ _Michael DeHaan_
 
 _Créé en 2012 et actuellement sous la responsabilité de Red Hat (IBM)_
 
-mots-clefs : configuration management, provisionning, déploiement...
+**mots-clefs** : configuration management, provisionning, déploiement...
 
 ---
 
@@ -20,8 +20,8 @@ mots-clefs : configuration management, provisionning, déploiement...
 
 ## Notions
 
-- playbooks : fichiers YAML décrivant toutes les tâches
-- collection : ensemble des réalisations de la communauté (Galaxy) séparée du coeur d'Ansible (core <= Red Hat)
+- playbooks : fichiers YAML décrivant toutes les actions à réaliser
+- collection : ensemble des réalisations de la communauté (Galaxy) séparé du coeur d'Ansible (core <= Red Hat)
     - respecte un format de distribution de contenu pour la communauté
         ```bash
         collection/
@@ -42,13 +42,10 @@ mots-clefs : configuration management, provisionning, déploiement...
         `plugins/modules_utils` : code commun aux plugins
 
 
-- IAC : Infrastructure As Code
-  ```
-  IAC is the instructions needed to provision and or configure infrastructure services...
-  e.g. you would run IAC scripts to build and or configure your infrastructure services as needed for your application...
-  ``` 
+- IAC : Infrastructure As Code [Mark Smith](https://www.quora.com/What-is-the-difference-between-IaaS-and-IAC)
 
-[Mark Smith](https://www.quora.com/What-is-the-difference-between-IaaS-and-IAC)
+    > IAC is the instructions needed to provision and or configure infrastructure services... \
+    > e.g. you would run IAC scripts to build and or configure your infrastructure services as needed for your application...
 
 ## Roadmap, bonnes pratiques
 
@@ -58,18 +55,17 @@ mots-clefs : configuration management, provisionning, déploiement...
 
 ### Playbooks
 
-- fichiers YAML : définition des tâches à réaliser sur les cibles
-  - définition des hôtes
-  - définition des variables
-  - appel des tâches à exécuter (qui peuvent appeler des modules)
-  - utilisation de templates (jinja2, pour créer des scripts...)
+- fichiers YAML : définition des différents enchainements des actions à réaliser sur les cibles
+    - définition des hôtes, variables
+    - appel des tâches à exécuter (qui peuvent appeler des modules)
+    - utilisation de templates (jinja2, pour créer des scripts...)
 
 - `--syntax-check` : vérifier la syntaxe du playbook
 - `--check` : réaliser une simulation
 
 ### Roles
 
-- `ansible-galaxy install geerlingguy.apache` : récupère des rôles de `Galaxy`
+- `ansible-galaxy install geerlingguy.apache` : récupère des rôles de la communauté `Galaxy`
 
 > Les rôles doivent-être téléchargés avant de pouvoir les utiliser dans les `playbooks`
 
@@ -93,7 +89,7 @@ mots-clefs : configuration management, provisionning, déploiement...
 
 ```bash
 > ansible --version
-ansible 2.5.1
+ansible 2.9.7
   config file = /etc/ansible/ansible.cfg
   configured module search path = [u'/home/blackpc/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /usr/lib/python2.7/dist-packages/ansible
@@ -101,36 +97,68 @@ ansible 2.5.1
   python version = 2.7.17 (default, Apr 15 2020, 17:20:14) [GCC 7.5.0]
 ```
 
+- `mkdir ansible_collections && cd ansible_collections`
+- `ansible-galaxy collection init doali.my_collection`
+
+qui renvoie
+
+```bash
+- Collection doali.my_collection was created successfully
+```
+
+```bash
+tree doali
+```
+
+```bash
+doali/
+└── my_collection
+    ├── docs
+    ├── galaxy.yml
+    ├── plugins
+    │   └── README.md
+    ├── README.md
+    └── roles
+```
+
+- `ansible-galaxy role init doali.my_role`
+
+qui renvoie
+
+```bash
+- Role doali.my_role was created successfully
+```
+
+```bash
+tree doali.my_role
+```
+
+```bash
+doali.my_role/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+8 directories, 8 files
+```
+
+
 - `ansible-galaxy init init_role`
 
 > - init_role was created successfully
-
-```bash
-tree init_role
-```
-
-```bash
-.
-└── init_role
-    ├── defaults
-    │   └── main.yml
-    ├── files
-    ├── handlers
-    │   └── main.yml
-    ├── meta
-    │   └── main.yml
-    ├── README.md
-    ├── tasks
-    │   └── main.yml
-    ├── templates
-    ├── tests
-    │   ├── inventory
-    │   └── test.yml
-    └── vars
-        └── main.yml
-
-9 directories, 8 files
-```
 
 ## Bilio
 
