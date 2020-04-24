@@ -13,7 +13,7 @@ Pour lancer ces VM, il suffit juste de lancer le script:
 
 ### Récupération des images
 ```
-wget -nc -P /tmp ftp://admin:thales@nas/images_vms/...
+wget -nc -P /tmp ftp://admin:<USER>@nas/images_vms/...
 ```
 permet la récuperation des images de debian. Les fichiers debian1 et debian2 sont les images de debian, ainsi que varstore1 et varstore2 qui permettent de stocker les variables EFI. QEMU_EFI est un bootloader pour une architecture ARM.
 
