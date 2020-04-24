@@ -1,0 +1,13 @@
+# liste des serveurs cibles
+# pour jouer nos recettes
+[mon_groupe]
+192.168.0.14
+
+[ma_db]
+192.168.0.14
+
+[mon_serveur]
+192.168.0.14 #ansible_user
+
+[tuto-ansible]
+172.17.0.2

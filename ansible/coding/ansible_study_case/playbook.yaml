@@ -1,0 +1,13 @@
+---
+
+# Operations à réaliser
+- name: Installation des serveurs
+  # sur les groupes suivants
+  hosts: mon_groupe
+  # utilisateur utilisé pour se connecter sur les serveurs
+  # ATTENTION : clef publique
+  remote_user: root
+
+  # Définition des tâches
+  tasks:
+    - name: ma_tache_1
