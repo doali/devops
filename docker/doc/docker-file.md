@@ -192,10 +192,38 @@ WORKDIR /tmp/my-nginx
 
 ## Astuces
 
+### Bonnes pratiques
+
 - versionner le Dockerfile
+
+### Reconstruire le layer `--no-cache`
+
 - `--no-cache` : `docker build --no-cache [...] .` : permet de ne pas utiliser le cache et de ce fait de reconstruire tous les layers
+- `RUN apt update --no-cache` : dans un Dockerfile permet de ne pas utiliser le cache sur la commande
+
+### Renommer un conteneur
+
 - `--name` : `docker run --name my-ghost [...] <nom_image>` : permet de nommer le conteneur : `docker run --name my-ghost -d -p 8080:2368 ghost`
+
+### Stopper et Supprimmer un conteneur
+
 - `--rm -f` : `docker build --rm -t tuto/debian-curl-copy .` : permet de supprimer et de stopper un conteneur
+
+### Garder un conteneur actif
+
+- `docker run -d --name <name_container> tail -f /dev/null` : garder un conteneur `d`etached actif en renvoyant en permanence sur ``/dev/null`
+
+```Dockerfile
+FROM <some base>
+CMD tail -f /dev/null
+```
+
+> Pour éviter le `exit` du conteneur, on renvoie sur `/dev/null` en permanence
+
+### Supprimer des images
+
+- `docker images -q` : renvoie les SHA-1 des images (pratiques pour supprimer les <none>)
+- `docker rmi $(docker images -q | head -7)` permet de supprimer les 7 premières images
 
 ## Multi-stage builds
 
