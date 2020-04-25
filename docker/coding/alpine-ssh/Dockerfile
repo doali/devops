@@ -1,18 +1,16 @@
 #
-# THIS DOES NOT WORK !!
+# THIS STILL DOES NOT WORK !!
 #
 FROM alpine
 
-MAINTAINER doali xou.xavl@gmail.com
+RUN apk update --no-cache add \
+  openrc \
+  openssh
 
-RUN apk update --no-cache
-RUN apk add openrc
-RUN apk add openssh
-RUN rc-update add sshd
-
-RUN rc-status
-RUN touch /run/openrc/softlevel
-RUN rc-service sshd start
+RUN rc-update add sshd \
+  && rc-status \
+  && touch /run/openrc/softlevel \
+  && rc-service sshd start
 
 EXPOSE 22/tcp
 
@@ -20,4 +18,4 @@ EXPOSE 22/tcp
 #VOLUME ["/sys/fs/cgroup"]
 
 #ENTRYPOINT ["rc-service", "sshd", "start"]
-CMD tail -f /dev/null
+CMD ["tail", "-f", "/dev/null"]
