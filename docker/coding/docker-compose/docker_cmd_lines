@@ -30,4 +30,4 @@ docker diff doali-web
 docker start doali-web
 
 # Supprimer le conteneur
-docker rm doali-web
+docker rm -f doali-web
