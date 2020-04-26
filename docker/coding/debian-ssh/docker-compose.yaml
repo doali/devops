@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  deb-ssh:
+    image: doali/debian-ssh:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
