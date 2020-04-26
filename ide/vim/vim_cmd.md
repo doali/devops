@@ -1,6 +1,7 @@
 # Vim command
 
 ## Mode command
+
 |command|description|
 |-------|-----------|
 |:set list|show invisible characters|
@@ -13,6 +14,21 @@
 |<Crtl>o|jump list (forward)|
 |<Crtl>i|jump list (backward)|
 |ciw'Ctrl+r"'|quote a word using single quote (`"` aka the last yank/delete)|
+
+### Case
+
+|command|description|
+|-------|-----------|
+|~   | Changes the case of current characte|
+|guu | Change current line from upper to lower|
+|gUU | Change current LINE from lower to upper|
+|guw | Change to end of current WORD from upper to lower|
+|guaw| Change all of current WORD to lower|
+|gUw | Change to end of current WORD from lower to upper|
+|gUaw| Change all of current WORD to upper|
+|g~~ | Invert case to entire lin|
+|g~w | Invert case to current WOR|
+|guG | Change to lowercase until the end of document|
 
 ## Biblio
 - [riptutorial](https://riptutorial.com/vim/example/26471/invisible-characters)
