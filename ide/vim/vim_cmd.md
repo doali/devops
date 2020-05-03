@@ -1,5 +1,14 @@
 # Vim command
 
+## Terminal command line
+
+|command|description|
+|-------|-----------|
+|vim +line_number <file>|open file at <line_number>|
+|vim +/line_number <file>|open file at <line_number>|
+|vim +/<function_name> <file>|open file at <function_name> line definition|
+
+
 ## Mode command
 
 |command|description|
