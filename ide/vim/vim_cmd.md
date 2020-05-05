@@ -4,25 +4,34 @@
 
 |command|description|
 |-------|-----------|
-|vim +line_number <file>|open file at <line_number>|
-|vim +/line_number <file>|open file at <line_number>|
-|vim +/<function_name> <file>|open file at <function_name> line definition|
+|`vim +line_number <file>`|open file at <line_number>|
+|`vim +/line_number <file>`|open file at <line_number>|
+|`vim +/<function_name> <file>`|open file at <function_name> line definition|
 
 
 ## Mode command
 
 |command|description|
 |-------|-----------|
-|:set list|show invisible characters|
-|:set nolist|hide invisible characters|
+|`:set list`|show invisible characters|
+|`:set nolist`|hide invisible characters|
 |`/<pattern>\c`|case insensitive|
 |`/<pattern>\C`|case sensitive|
-|:echo @% |directory/name of the current file from the working directory|
-|<g>;|move through edit positions (forward)|
-|<g>,|move through edit positions (backward)|
-|<Crtl>o|jump list (forward)|
-|<Crtl>i|jump list (backward)|
-|ciw'Ctrl+r"'|quote a word using single quote (`"` aka the last yank/delete)|
+|`:echo @% `|directory/name of the current file from the working directory|
+|`<g>;`|move through edit positions (forward)|
+|`<g>,`|move through edit positions (backward)|
+|`<Crtl>o`|jump list (forward)|
+|`<Crtl>i`|jump list (backward)|
+|`ciw'Ctrl+r"'`|quote a word using single quote (`"` aka the last yank/delete)|
+|`.`|repeat last command|
+
+### Macro
+
+|command|description|
+|-------|-----------|
+|`qa`|start recording a macro named `a`|
+|`q`|stop recording|
+|`@a`|play the macro named `a`|
 
 ### Case
 
