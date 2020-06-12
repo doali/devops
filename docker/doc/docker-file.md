@@ -241,6 +241,14 @@ COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"]
 ```
 
+## Registry
+
+### Lister _toutes les images_
+
+```bash
+curl -X GET https://myregistry:5000/v2/_catalog
+```
+
 ## Biblio
 
 - [stack overflow](https://stackoverflow.com/questions/41603822/docker-how-to-update-images/41604309)
@@ -253,3 +261,4 @@ CMD ["./app"]
 - [AUFS wikipedia](https://en.wikipedia.org/wiki/Aufs)
 - [multistage](https://docs.docker.com/develop/develop-images/multistage-build/)
 - [ENV vs ARG](https://vsupalov.com/docker-arg-vs-env/)
+- [registry list](https://stackoverflow.com/questions/31251356/how-to-get-a-list-of-images-on-docker-registry-v2)
