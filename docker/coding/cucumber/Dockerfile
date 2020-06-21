@@ -1,6 +1,5 @@
-FROM ruby:2.7
+FROM debian-cucumber:0.0.1 as debcucu
 
-RUN gem install cucumber
-RUN cucumber --init
+VOLUME /pel/tests
 
 CMD ["tail", "-f", "/dev/null"]
