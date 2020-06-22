@@ -164,20 +164,26 @@ root@9313ecffa5f7:/#
 
 > On observe dans le fichier `/etc/hosts` l'ajout de l'@IP et du nom associé
 
-#### `--ip`
+#### `--ip` et `--hostname`
 
 - `docker network create -d bridge --subnet 192.85.0.0/16 net_yo` : création du réseau net_yo 
-- `docker run --rm -it --name c_1 --network net_yo --ip 192.85.0.85 debian` : spécification de l'adresse ip
+- `docker run --rm -it --name c_1 --network net_yo --ip 192.85.0.85 --hostname titi_host debian` : spécification de l'adresse ip
 
 ```bash
-root@b082e52e50be:/# ip a
+root@titi_host:/# ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-84: eth0@if85: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+115: eth0@if116: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
     link/ether 02:42:c0:55:00:55 brd ff:ff:ff:ff:ff:ff link-netnsid 0
     inet 192.85.0.85/16 brd 192.85.255.255 scope global eth0
        valid_lft forever preferred_lft forever
-root@b082e52e50be:/#
+root@titi_host:/#
 ```
+
+## Biblio
+- [devopssec](https://devopssec.fr/article/fonctionnement-manipulation-reseau-docker)
+- [docker --ip](https://docs.docker.com/engine/reference/commandline/network_connect/)
+- [--link vs --net-alias](https://stackoverflow.com/a/36049118)
+- [docker compose net](https://runnable.com/docker/docker-compose-networking)
