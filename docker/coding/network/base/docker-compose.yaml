@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  pel:
+    image: pel-compose:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /tmp/bdd:/pel/tests
+      - /tmp/outcome_cucumber:/tmp/outcome_cucumber
+    networks:
+      net_pel:
+        ipv4_address: 192.168.10.10
+    command: tail -f /dev/null
+        #command: bash -c "cd /pel/tests && cucumber --format html features/manage-server.feature >/tmp/outcome_cucumber/results.html"
+
+networks:
+  net_pel:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
