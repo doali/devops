@@ -193,3 +193,4 @@ En repartant du docker-compose, on ajoute un base de données `MySQL`
 - [docker compose network](https://runnable.com/docker/docker-compose-networking)
 - [flask, python, docker](https://docs.docker.com/compose/gettingstarted/)
 - [docker docs](https://docs.docker.com/compose/networking/#links)
+- [build arg](https://vsupalov.com/docker-env-vars/)
