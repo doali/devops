@@ -98,7 +98,7 @@ Sur le même réseau !!
 
 - `none` : aucun accès à l'hôte, pas d'ouverture sur le réseau
 - `host` : accès uniquement à l'hôte (soit la machine hébergeant docker)
-- `container:<nom_conteneur` : accès uniquement à un conteneur particulier
+- `container:<nom_conteneur>` : accès uniquement à un conteneur particulier
 
 `--link`
 
