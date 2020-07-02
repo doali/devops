@@ -7,4 +7,4 @@
 
 ## Biblio
 
-- [DUT vs EAT](https://en.wikipedia.org/wiki/Device_under_test)
+- [DUT vs ATE](https://en.wikipedia.org/wiki/Device_under_test)
