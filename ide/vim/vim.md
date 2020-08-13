@@ -28,7 +28,6 @@ _Gestionnaire de plugins_
 
 ### Preparation installation
 ```bash
-cd ~/.vimrc
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
