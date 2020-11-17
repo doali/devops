@@ -215,4 +215,5 @@ _La commande `git grep`_
 ## Biblio
 
 - [atlassian](https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud)
+- [atlassian api python](https://atlassian-python-api.readthedocs.io/index.html)
 - [git-scm](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
