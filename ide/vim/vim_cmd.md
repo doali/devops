@@ -44,8 +44,8 @@
 |guaw| Change all of current WORD to lower|
 |gUw | Change to end of current WORD from lower to upper|
 |gUaw| Change all of current WORD to upper|
-|g~~ | Invert case to entire lin|
-|g~w | Invert case to current WOR|
+|g~~ | Invert case to entire line|
+|g~w | Invert case to current WORD|
 |guG | Change to lowercase until the end of document|
 
 ## Biblio
