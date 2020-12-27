@@ -31,3 +31,5 @@ ip -o addr | grep  wlp3s7 | awk '{print$4}' | head -1 | cut -d\/ -f1
 - [docker hub](codercom/code-server)
 - [image](https://github.com/cdr/code-server)
 - [g++](https://code.visualstudio.com/docs/cpp/config-linux)
+- [cert, https](https://github.com/demyxco/code-server/blob/master/docker-compose.yml)
+- [https](https://github.com/cdr/code-server/discussions/1048)
