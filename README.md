@@ -2,6 +2,12 @@
 
 _Outils pour le devops_
 
+## Dev
+
+_online with gitpod linked to gitlab, github, ..._
+
+- [gitpod](https://www.gitpod.io/)
+
 ## Biblio
 
 - [Video Basics](https://intellipaat.com/community/35890/what-is-the-difference-between-ansible-and-docker)

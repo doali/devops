@@ -213,3 +213,4 @@ _Indépendamment de ce qui précède, on pourra noter concernant les interfaces 
   - [kvm](https://linux.goffinet.org/administration/virtualisation-kvm/)
 - réseau
   - [tap](https://en.wikipedia.org/wiki/TUN/TAP)
+- [statckoverflow](https://stackoverflow.com/questions/54920450/how-to-configure-grub-using-cloud-init-without-restarting-the-system)
