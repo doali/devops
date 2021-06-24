@@ -5,15 +5,26 @@ _(linuxize)_
 
 ## Install
 
-```bash
-sudo apt install ./teamviewer_15.19.3_amd64.deb
-```
+`sudo apt install ./teamviewer_15.19.3_amd64.deb`
 
 ## Uninstall
 
+`sudo dpkg --remove teamviewer`
+
 ```bash
-sudo dpkg --remove teamviewer
+titi@rominet:/etc/apt/sources.list.d 
+> pwd
+/etc/apt/sources.list.d
+titi@rominet:/etc/apt/sources.list.d 
+> tree
+.
+├── ansible-ubuntu-ansible-focal.list
+└── teamviewer.list
+
+0 directories, 2 files
 ```
+
+`sudo rm teamviewer.list`
 
 ## Biblio
 
