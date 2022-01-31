@@ -1,0 +1,17 @@
+# ================================================================================
+# https://askubuntu.com/questions/125257/how-do-i-add-an-additional-hard-drive
+# lun. 31 janv. 2022 12:07:39 CET
+# 
+# Utiliser lors de la création d'une VM via Virtual Box
+# - création d'un disque dur par défaut pour virtual box pour l'OS Ubuntu
+# - ajout par la suite d'un disque dur VHD
+#
+# la page askubuntu décrit comment monter un disque dur
+# - extrait des commandes ci-dessous correspondant à une des réponses
+# ================================================================================
+sudo cgdisk /dev/sdb
+sudo mkfs -t ext4 /dev/sdb1
+sudo blkid
+sudo vim /etc/fstab
+sudo mount -av
+# --------------------------------------------------------------------------------
