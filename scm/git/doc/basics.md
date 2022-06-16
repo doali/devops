@@ -170,6 +170,8 @@ _Tout est branche !!_
 - `git branch --list` pour lister toutes les branches locales (.git)
 - `git checkout -b dev` crée en local (.git) une branche nommée dev et bascule sur cette branche
 - `git push --set-upstream origin dev` pousse à l'@ origin la nouvelle branche dev
+- `git branch -d branch_to_delete_locally_and_remotely` supprime la branche locale
+- `git push origin -d branch_to_delete_locally_and_remotely` supprime la branche distante
 
 ## grep
 
@@ -217,3 +219,4 @@ _La commande `git grep`_
 - [atlassian](https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud)
 - [atlassian api python](https://atlassian-python-api.readthedocs.io/index.html)
 - [git-scm](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
+- [baeldung](https://www.baeldung.com/git-delete-branch-locally-remotely)
