@@ -173,6 +173,24 @@ _Tout est branche !!_
 - `git branch -d branch_to_delete_locally_and_remotely` supprime la branche locale
 - `git push origin -d branch_to_delete_locally_and_remotely` supprime la branche distante
 
+### Renommage
+
+- `git branch -m br_old br_new` pour renommer depuis la branche courante `br_old` (checkout) en `br_new`
+
+> Attention !!!
+
+- Se positionner sur la branche à renommer `git checkout br_old`
+- Renommer `git branch -m br_old br_new`
+
+> Prudence !!!
+
+_Une fois la branche renommée, ne pas oublier de la délier de la branche distante_
+
+- `git checkout br_new` (se repositionner sur la branche si nécessaire)
+- `git branch --unset-upstream`
+
+> On peut vérifier simplement `cd .git ; cat config | grep br_old`
+
 ## grep
 
 _La commande `git grep`_
