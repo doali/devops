@@ -34,6 +34,20 @@ git log develop..branch_name --oneline
 git log develop..branch_name --oneline | tail -1
 ```
 
+*Autres commandes possibles*
+
+```bash
+git log --oneline origin/develop..branch_name
+```
+
+```bash
+git log --oneline branch_name --not origin/develop
+```
+
+```bash
+git log --oneline branch_name ^origin/develop
+```
+
 ## Restaurer un fichier
 
 ```bash
