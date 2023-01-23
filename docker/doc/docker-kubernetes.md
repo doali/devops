@@ -205,6 +205,9 @@ Pour sauvegarder de cette image, il faut l'exporter : `docker save debian-vim >~
 
 - `docker image prune` : supprime toutes les images
 
+
+> Pour supprimer toutes les images pendantes `docker rmi $(docker images -f "dangling=true" -q)`
+
 *RM* 
 
 > Le prompt invite à confirmer les demandes de suppressions
