@@ -115,6 +115,12 @@ git checkout
 > récupère à l'@ contenue dans l'alias origin, toutes les modifications de la branche master
 - `git fetch`récupère toutes les branches, tags... distants pour les mettre sur le repository local (.git) ainsi que les références des commits distants
 
+### push _token_
+
+> Pousser des modifications sur gitlab avec un utilisateur `<user>` et un jeton `<token>`
+
+- `git push -u https://<user>:<token>@github.com/<user>/github.git`
+
 ## commit file
 
 - `git push origin master`
