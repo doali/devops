@@ -138,6 +138,42 @@ git checkout
 > - le positionnement courant de la HEAD
 > - une representation semi-graphique
 
+- `git log --oneline --graph --all`
+- `git log -1 -p --stat [<sha>]`
+- `git show [<sha>]`
+- `git show --stat [<sha>]`
+
+> `git log --oneline a..b`
+> 
+> **Signification :**
+> - Cette commande signifie : afficher les commits qui sont dans `b` mais pas dans `a`.
+> 
+> - Syntaxe équivalente : `git log --oneline b ^a`
+> 
+> **Effet :**
+> - Elle affiche tous les commits accessibles depuis la branche b, à l'exclusion des commits présents dans la branche a.
+> - Cela permet de voir ce qui a été ajouté dans b et pas encore fusionné dans a.
+
+> `git log --oneline a ^b`
+> 
+> **Signification :**
+> - Cette commande signifie : afficher les commits présents dans la branche `a` mais pas dans la branche `b`.
+> - `^b` (ou `--not b`) est une syntaxe Git qui exclut les commits accessibles depuis la branche `b`.
+> 
+> **Effet :**
+> - Elle affiche tous les commits accessibles à partir de `a` qui ne sont pas présents dans `b`.
+> - Cela correspond aux commits qui existent dans `a` mais n'ont pas encore été fusionnés dans `b`.
+
+> `git log --oneline a...b`
+>
+> **Signification :**
+> 
+> - Cette commande affiche les commits qui sont dans `a` ou dans `bè, mais pas dans les deux à la fois.
+> 
+> **Effet :**
+> - Exclut les commits qui sont communs à `a` et `b` (commits dans la base commune des deux branches).
+> - Affiche uniquement les commits uniques à `a` et uniques à `b`.
+
 ## diff
 
 - `git diff` compare la copie de travail avec la zone d'index
