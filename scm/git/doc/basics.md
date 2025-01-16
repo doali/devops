@@ -143,6 +143,15 @@ git checkout
 - `git show [<sha>]`
 - `git show --stat [<sha>]`
 
+> `git show 7c6054f:.gitlab-ci.yml`
+> Affiche le contenu du fichier pour le commit 7c6054f
+
+> `git show 7c6054f^:.gitlab-ci.yml`
+> Affiche le contenu du fichier pour le commit 7c6054f^ (soit les commit précédent, i.e. le commit parent)
+
+> `git show HEAD:.gitlab-ci.yml`
+> Affiche le contenu du fichier du dernier commit
+
 > `git log --oneline a..b`
 > 
 > **Signification :**
@@ -173,6 +182,13 @@ git checkout
 > **Effet :**
 > - Exclut les commits qui sont communs à `a` et `b` (commits dans la base commune des deux branches).
 > - Affiche uniquement les commits uniques à `a` et uniques à `b`.
+
+> `git log 7c6054f...7c6054f^`
+> Affiche tous les commits (voir cela comme un ou exclusif) des ensembles
+> `7c6054f` et `7c6054f^`
+> i.e. 
+> - les commits presents dans `7c6054f` et non presents dans `7c6054f^`
+> - les commits presents dans `7c6054f^` et non presents dans `7c6054f`
 
 ## diff
 
