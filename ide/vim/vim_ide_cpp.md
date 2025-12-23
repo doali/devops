@@ -87,7 +87,7 @@ build:
 ---
 
 ## 6. Débogage (GDB / Termdebug)
-Vim intègre nativement un pilotage pour GDB.
+Vim intègre nativement un pilotage pour GDB **Termdebug**.
 
 ### Lancement
 1. Chargez l'outil : `:packadd termdebug`
@@ -96,6 +96,8 @@ Vim intègre nativement un pilotage pour GDB.
 ### Commandes d'inspection mémoire
 * **`:Asm`** : Affiche le code assembleur.
 * **`:Evaluate` (ou `K`)** : Affiche la valeur de la variable sous le curseur.
+* **`set disable-randomization on`** : Désactive l'ASLR pour figer les adresses mémoire.
+* **`info proc`** : Permet de trouver le **PID** exact du processus enfant (inferior).
 * **Console GDB (Fenêtre du bas)** :
     * `p &maVar` : Affiche l'adresse d'une variable.
     * `p monPtr` : Affiche l'adresse contenue dans un pointeur.
@@ -118,7 +120,15 @@ Le plugin `vim-session` permet de mémoriser votre disposition :
 
 ---
 
-## 8. Maintenance
+## 8. Outils d'Analyse Système (Hors Vim)
+* **`nm -C [bin]`** : Liste les symboles.
+* **`objdump -h [bin]`** : Liste les sections (.text, .data).
+* **`ldd [bin]`** : Liste les bibliothèques dynamiques liées.
+* **`cat /proc/[PID]/maps`** : Affiche la carte mémoire réelle du processus.
+
+---
+
+## 9. Maintenance
 * **Mise à jour des plugins** : `:PlugUpdate`.
 * **Vérification de l'état** : `:PlugStatus`.
 * **Nettoyage (si plugin supprimé)** : `:PlugClean`.
@@ -127,7 +137,7 @@ Le plugin `vim-session` permet de mémoriser votre disposition :
 
 ## 9. Fichier `~/.vimrc` complet
 
-```bash
+```vim
 " ============================================================================
 " CONFIGURATION IDE C++ ULTIME - VIM
 " ============================================================================
