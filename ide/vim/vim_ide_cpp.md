@@ -103,6 +103,12 @@ Vim intègre nativement un pilotage pour GDB.
     * `display var` : Affiche la valeur à chaque étape (Step/Next).
 * **Interface visuelle** : Dans la fenêtre GDB, tapez `layout next` pour cycler vers la vue des registres ou des variables locales.
 
+### 🧠 Inspection Mémoire (GDB)
+* `bt full` : Affiche la pile d'appels avec les valeurs des variables locales.
+* `x/32xw $sp` : Affiche les 32 prochains mots sur la Stack à partir du pointeur de pile.
+* `p *ptr@10` : Affiche les 10 premiers éléments d'un tableau pointé par `ptr`.
+* `watch -l *0x7fffffffe040` : Arrête le programme si la valeur à cette adresse change (très utile pour traquer les corruptions sur la Heap).
+
 ---
 
 ## 7. Sauvegarde de l'environnement (Sessions)
