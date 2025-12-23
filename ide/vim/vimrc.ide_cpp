@@ -1,0 +1,89 @@
+" ============================================================================
+" CONFIGURATION IDE C++ ULTIME - VIM
+" ============================================================================
+
+set nocompatible
+set encoding=utf-8
+
+" --- CONFIGURATION DU LEADER (IMPÉRATIF AU DÉBUT) ---
+let mapleader = ","
+set timeoutlen=500             " Laisse 500ms pour taper la suite du raccourci
+
+" --- Paramètres Système ---
+set number
+set relativenumber
+set laststatus=2
+set updatetime=500
+set signcolumn=yes
+set hidden
+set noshowmode
+set mouse=a
+
+" --- Section Plugins ---
+call plug#begin('~/.vim/plugged')
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'prabirshrestha/vim-lsp-settings'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'preservim/nerdtree'
+  Plug 'preservim/tagbar'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'xolox/vim-session'
+  Plug 'xolox/vim-misc'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+filetype plugin indent on
+syntax on
+
+" --- Configuration FZF (Recherche) ---
+" Les raccourcis fonctionnent maintenant car le leader est défini plus haut
+nnoremap <silent> <leader>s :BTags<CR>
+nnoremap <silent> <leader>f :Rg<CR>
+nnoremap <C-p> :Files<CR>
+
+" --- Raccourcis de Navigation & Splits ---
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>h :split<CR>
+nnoremap <leader>x :close<CR>
+
+" Navigation entre splits avec Ctrl + flèches
+nnoremap <C-Left> <C-w>h
+nnoremap <C-Down> <C-w>j
+nnoremap <C-Up> <C-w>k
+nnoremap <C-Right> <C-l>
+
+" Autres outils
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
+
+" --- Configuration Interface & Signes LSP ---
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'dark'
+let g:airline#extensions#tabline#enabled = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_error = {'text': "\uf057"}
+let g:lsp_diagnostics_signs_warning = {'text': "\uf071"}
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
+
+" --- Fonctions LSP (gd, gr, K...) ---
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+endfunction
+
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" Nettoyage automatique des espaces en fin de ligne
+autocmd BufWritePre * %s/\s\+$//e
