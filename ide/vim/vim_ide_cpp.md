@@ -14,6 +14,9 @@ sudo dnf install ctags
 
 # Le moteur de recherche de texte ultra-rapide (utilisé par le raccourci ,f)
 sudo dnf install ripgrep
+
+# Le moteur de recherche interactive en ligne de commande  : Fuzzy Finder
+#sudo dnf install fzf # Car Vim le téléchargera automatiquement
 ```
 
 ## 2. Configuration Graphique (Polices Nerd Fonts)
