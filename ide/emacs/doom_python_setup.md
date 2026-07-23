@@ -51,6 +51,18 @@ Vérification :
 python -m debugpy --version
 ```
 
+### pytest
+
+```bash
+pip install pytest
+```
+
+Vérification :
+
+```bash
+python -m pytest --version
+```
+
 ---
 
 ## Installation dans un environnement virtuel
