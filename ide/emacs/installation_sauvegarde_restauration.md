@@ -27,7 +27,7 @@ Installer également :
    `export PATH="$HOME/.emacs.d/bin:$PATH"`
 
 
-    > Ansin que ce qui suit uniquement si installation viat Flatpak
+    > Ainsi que ce qui suit uniquement si installation viat Flatpak
 
     ```bash
     # ------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ Installer également :
 ---
 
 ## 2. PROCESSUS DE SAUVEGARDE
-Pour Doom Emacs, vous ne devez sauvegarder QUE votre dossier de configuration privée. Ne sauvegardez pas ~/.emacs.d car il contient des milliers de fichiers de cache volumineux.
+Pour Doom Emacs, vous ne devez sauvegarder QUE votre dossier de configuration privée. Ne sauvegardez pas `~/.emacs.d` car il contient des milliers de fichiers de cache volumineux.
 
 Variables de configuration :
 - Dossier source : `~/.doom.d`
@@ -49,7 +49,7 @@ Variables de configuration :
 Script de sauvegarde (sauvegarde_doom.sh) :
 
 ```bash
-------------------------------------------
+# ------------------------------------------
 #!/bin/bash
 if [[ -z "$1" ]]; then
     echo "❌ Erreur : Chemin de destination manquant."
@@ -66,7 +66,7 @@ tar -czf "$DEST_DIR/doom_config_$DATE.tar.gz" -C "$HOME" .doom.d
 if [ $? -eq 0 ]; then
     echo "✅ Sauvegarde terminée : $DEST_DIR/doom_config_$DATE.tar.gz"
 fi
-------------------------------------------
+# ------------------------------------------
 ```
 
 ## 3. PROCESSUS DE RESTAURATION
